@@ -113,7 +113,7 @@ const circleBtnCss = css`
 
 const opacityCss = css`
   opacity: 0;
-  transform: translateY(-50px);
+  transform: translateY(50px);
 `;
 
 const showCss = css`
@@ -134,23 +134,35 @@ export default class Page extends Component {
     this.bubbles = [
       {
         width: Math.random() * 7 + 4,
-        delay: Math.random() * 20,
+        delay: Math.random() * 20 - 20,
       },
       {
         width: Math.random() * 7 + 4,
-        delay: Math.random() * 20,
+        delay: Math.random() * 20 - 20,
       },
       {
         width: Math.random() * 7 + 4,
-        delay: Math.random() * 20,
+        delay: Math.random() * 20 - 20,
       },
       {
         width: Math.random() * 7 + 4,
-        delay: Math.random() * 20,
+        delay: Math.random() * 20 - 20,
       },
       {
         width: Math.random() * 7 + 4,
-        delay: Math.random() * 20,
+        delay: Math.random() * 20 - 20,
+      },
+      {
+        width: Math.random() * 7 + 4,
+        delay: Math.random() * 20 - 20,
+      },
+      {
+        width: Math.random() * 7 + 4,
+        delay: Math.random() * 20 - 20,
+      },
+      {
+        width: Math.random() * 7 + 4,
+        delay: Math.random() * 20 - 20,
       },
     ];
 
@@ -171,7 +183,7 @@ export default class Page extends Component {
 
   handleMouseMove(e) {
     this.setState({
-      left: e.pageX,
+      left: e.pageX * 0.6,
       top: Math.min(e.pageY - window.pageYOffset, 1000),
     });
   }
@@ -203,6 +215,9 @@ function Content({ left, top, bubbles, roundTranslate }) {
         css={css`
           /* display: none; */
           height: 100vh;
+          @media (max-width: 576px) {
+            height: 150vh;
+          }
         `}
       >
         <LoadingAnimation
@@ -371,7 +386,19 @@ function Content({ left, top, bubbles, roundTranslate }) {
               css={css`
                 position: absolute;
                 width: 30vw;
-                top: 38vw;
+                top: 36vw;
+                @media (max-width: 1080px) {
+                  top: 37vw;
+                }
+                @media (max-width: 800px) {
+                  top: 38vw;
+                }
+                @media (max-width: 700px) {
+                  top: 39vw;
+                }
+                @media (max-width: 576px) {
+                  display: none;
+                }
 
                 & img {
                   width: 100%;

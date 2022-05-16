@@ -7,12 +7,9 @@ const Title = ({ text, enText }) => {
       css={css`
         margin-bottom: 50px;
         font-size: 3.3vw;
-        /* @media (max-width: 1280px) {
-          font-size: 44px;
-        }
         @media (max-width: 1080px) {
-          font-size: 44px;
-        } */
+          font-size: 30px;
+        }
       `}
     >
       <h1
@@ -41,7 +38,11 @@ const Title = ({ text, enText }) => {
             opacity: 0.6;
 
             @media (max-width: 768px) {
-              display: none;
+              top: 70px;
+            }
+            @media (max-width: 420px) {
+              top: 76px;
+              font-size: 50px;
             }
           }
         `}

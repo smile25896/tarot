@@ -70,7 +70,7 @@ const PostCard = ({ link }) => {
                 position: relative;
                 width: 100%;
                 height: 100%;
-                padding: 20% 15%;
+                /* padding: 20% 15%; */
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 27px;
@@ -86,16 +86,27 @@ const PostCard = ({ link }) => {
                 css={css`
                   text-align: center;
                   margin-bottom: 18px;
+                  @media (max-width: 1280px) {
+                    height: 50px;
+                    img {
+                      height: 100%;
+                    }
+                  }
                 `}
               >
                 <img src="/images/bubble1.png" alt="bubble" />
               </div>
               <div
                 css={css`
+                  padding: 0 70px;
                   display: -webkit-box;
                   -webkit-box-orient: vertical;
-                  -webkit-line-clamp: 4;
+                  -webkit-line-clamp: 6;
                   overflow: hidden;
+                  @media (max-width: 1280px) {
+                    -webkit-line-clamp: 4;
+                    padding: 0 40px;
+                  }
                 `}
               >
                 塔羅牌占卜是個活生生的系統，能夠創造性地適應你獨特的需求。你所需要的僅僅是一顆開放的心和及真誠的願望，去尋求你生命中反映在塔羅圖像上潛藏的深層實相...
@@ -106,7 +117,7 @@ const PostCard = ({ link }) => {
             css={css`
               position: absolute;
               bottom: 20px;
-              padding: 10px 10px 10px 5px;
+              padding: 10px 5px 10px 5px;
               border-radius: 0px 5px 5px 0px;
               background-color: white;
               -webkit-writing-mode: vertical-lr;
@@ -116,7 +127,6 @@ const PostCard = ({ link }) => {
               }
               &:before {
                 content: "塔羅秘笈";
-                /* height: auto; */
                 background: linear-gradient(
                   216.07deg,
                   #ff9999 2.53%,
@@ -127,6 +137,8 @@ const PostCard = ({ link }) => {
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
                 text-fill-color: transparent;
+                letter-spacing: 0.3em;
+                line-height: 23px;
               }
             `}
           ></div>
@@ -142,6 +154,12 @@ const PostCard = ({ link }) => {
             color: #48381d;
             margin-top: 17px;
 
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            height: 100%;
+
             @media (max-width: 576px) {
               /* display: inline-block; */
               flex: 1;
@@ -151,7 +169,7 @@ const PostCard = ({ link }) => {
             }
           `}
         >
-          想知道塔羅牌的「逆位」如何解釋嗎？學習塔羅的 5 大常...
+          想知道塔羅牌的「逆位」如何解釋嗎？學習塔羅的 5 大常
           <div
             css={css`
               @media (min-width: 577px) {

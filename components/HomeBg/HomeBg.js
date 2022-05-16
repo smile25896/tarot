@@ -93,12 +93,12 @@ const HomeBg = ({ bubbles, roundTranslate }) => {
         css={[
           bubblesCss,
           css`
-            left: ${index * 20}vw;
+            left: ${index * 12.5}vw;
             width: ${item.width}vw;
             height: ${item.width}vw;
             filter: blur(${item.width}px);
             animation-delay: ${item.delay}s;
-            animation-duration: ${item.width * 2.2}s;
+            animation-duration: ${item.width * 0.7 + 6}s;
           `,
         ]}
       ></div>
@@ -125,6 +125,10 @@ const HomeBg = ({ bubbles, roundTranslate }) => {
 
           @media (max-width: 768px) {
             top: -10vh;
+          }
+
+          @media (max-width: 576px) {
+            height: 250vh;
           }
         `}
       ></div>
@@ -223,6 +227,10 @@ const HomeBg = ({ bubbles, roundTranslate }) => {
             transparent 90%,
             transparent
           );
+
+          @media (max-width: 576px) {
+            top: 200vh;
+          }
         `}
       ></div>
       <div
