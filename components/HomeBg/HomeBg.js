@@ -243,6 +243,7 @@ const HomeBg = ({ bubbles, roundTranslate }) => {
           left: 10vw;
           z-index: -1;
           overflow: hidden;
+          opacity: 0.4;
           /* transition: transform 1s; */
           ${`transform: translateY(${-roundTranslate}px)`}
 
@@ -254,26 +255,26 @@ const HomeBg = ({ bubbles, roundTranslate }) => {
           }
         `}
       >
-        {/* <div
-      css={css`
-        position: absolute;
-        width: 80vw;
-        height: 80vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      `}
-    >
-      <img
-        src="/images/circle-sun.png"
-        alt="background"
-        css={css`
-          position: absolute;
-          width: 45%;
-          margin: 0 auto;
-        `}
-      />
-    </div> */}
+        <div
+          css={css`
+            position: absolute;
+            width: 80vw;
+            height: 80vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          `}
+        >
+          <img
+            src="/images/circle-sun.png"
+            alt="background"
+            css={css`
+              position: absolute;
+              width: 100%;
+              margin: 0 auto;
+            `}
+          />
+        </div>
         <img
           src="/images/circle-main.png"
           alt="background"
