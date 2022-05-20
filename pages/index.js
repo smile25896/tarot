@@ -156,14 +156,6 @@ export default class Page extends Component {
         width: Math.random() * 7 + 4,
         delay: Math.random() * 20 - 20,
       },
-      {
-        width: Math.random() * 7 + 4,
-        delay: Math.random() * 20 - 20,
-      },
-      {
-        width: Math.random() * 7 + 4,
-        delay: Math.random() * 20 - 20,
-      },
     ];
 
     // this.handleMouseMove = debounce(this.handleMouseMove, 30);

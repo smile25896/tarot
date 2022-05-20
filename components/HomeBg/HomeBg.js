@@ -80,7 +80,7 @@ const bubblesCss = css`
   height: 10vw;
   border-radius: 50%;
   background: white;
-  opacity: 0.6;
+  opacity: 0.4;
   animation: ${bubblesKeyframes} 10s linear infinite;
 `;
 
@@ -93,7 +93,7 @@ const HomeBg = ({ bubbles, roundTranslate }) => {
         css={[
           bubblesCss,
           css`
-            left: ${index * 12.5}vw;
+            left: ${index * 16}vw;
             width: ${item.width}vw;
             height: ${item.width}vw;
             filter: blur(${item.width}px);
@@ -121,7 +121,7 @@ const HomeBg = ({ bubbles, roundTranslate }) => {
           width: 100%;
           height: 180vh;
           z-index: -1;
-          background: linear-gradient(45deg, #e6f4f2, #f5ede4, #f5e4e1);
+          background: linear-gradient(90deg, #e6f4f2, #f5ede4, #f5e4e1);
 
           @media (max-width: 768px) {
             top: -10vh;
@@ -245,7 +245,7 @@ const HomeBg = ({ bubbles, roundTranslate }) => {
           overflow: hidden;
           opacity: 0.4;
           /* transition: transform 1s; */
-          ${`transform: translateY(${-roundTranslate}px)`}
+          ${`transform: translateY(${-roundTranslate}px)`};
 
           @media (max-width: 576px) {
             top: 80vh;

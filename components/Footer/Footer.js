@@ -94,31 +94,7 @@ const Footer = () => {
             height: 70vh;
             overflow: hidden;
             z-index: -1;
-            background: radial-gradient(
-                circle at 50% 60%,
-                rgba(255, 237, 212, 1),
-                rgba(255, 237, 212, 0) 50%
-              ),
-              radial-gradient(
-                circle at 10% 10%,
-                rgba(255, 237, 212, 1),
-                rgba(246, 212, 216, 0) 50%
-              ),
-              radial-gradient(
-                circle at 90% 10%,
-                rgba(175, 233, 235, 0.5),
-                rgba(255, 237, 212, 0) 50%
-              ),
-              radial-gradient(
-                circle at 90% 90%,
-                rgba(255, 237, 212, 1),
-                rgba(175, 233, 235, 0) 50%
-              ),
-              radial-gradient(
-                circle at 10% 90%,
-                rgba(246, 212, 216, 1),
-                rgba(255, 237, 212, 0) 50%
-              );
+            background: linear-gradient(90deg, #e6f4f2, #f5ede4, #f5e4e1);
           `}
         ></div>
         <div
