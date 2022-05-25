@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import PropTypes from "prop-types";
 import { css } from "@emotion/react";
-import Image from "next/image";
+import Link from "next/link";
 
 const lineCss = css`
   height: 1px;
@@ -8,20 +9,32 @@ const lineCss = css`
   margin: 12px 0;
 `;
 
-const Header = () => {
+const Header = ({ showMenu }) => {
   return (
     <header
       css={css`
+        position: ${showMenu ? "static" : "fixed"};
         padding: 30px 45px;
         display: flex;
         justify-content: space-between;
         align-items: center;
       `}
     >
-      <Image src="/images/logo.svg" width="145" height="25" alt="" />
+      <Link href="/">
+        <img
+          css={css`
+            cursor: pointer;
+          `}
+          src="/images/logo.svg"
+          width="145"
+          height="25"
+          alt=""
+        />
+      </Link>
       <div
         className="menu-icon"
         css={css`
+          display: ${showMenu ? "block" : "none"};
           cursor: pointer;
           /* float: right; */
           width: 37px;
@@ -83,5 +96,9 @@ const Header = () => {
       </div>
     </header>
   );
+};
+
+Header.propTypes = {
+  showMenu: PropTypes.bool.isRequired,
 };
 export default Header;
