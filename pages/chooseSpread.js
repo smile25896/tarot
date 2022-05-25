@@ -95,16 +95,17 @@ export default class Page extends Component {
     }, 1000);
     this.wheeling = true;
 
+    let length = spreads.length * 3;
     let activeIndex = this.state.activeIndex;
     if (e.deltaY > 0) {
-      if (activeIndex + 1 >= spreads.length) {
+      if (activeIndex + 1 >= length) {
         activeIndex = 0;
       } else {
         activeIndex += 1;
       }
     } else {
       if (activeIndex === 0) {
-        activeIndex = spreads.length - 1;
+        activeIndex = length - 1;
       } else {
         activeIndex -= 1;
       }
@@ -122,7 +123,31 @@ export default class Page extends Component {
           activeIndex={this.state.activeIndex}
           item={item}
           index={index}
-          total={spreads.length}
+          total={spreads.length * 3}
+          clickSpreadItem={this.clickSpreadItem}
+        />
+      );
+    });
+    const spreadItems2 = spreads.map((item, index) => {
+      return (
+        <SpreadItem
+          key={item.id}
+          activeIndex={this.state.activeIndex}
+          item={item}
+          index={index + spreads.length}
+          total={spreads.length * 3}
+          clickSpreadItem={this.clickSpreadItem}
+        />
+      );
+    });
+    const spreadItems3 = spreads.map((item, index) => {
+      return (
+        <SpreadItem
+          key={item.id}
+          activeIndex={this.state.activeIndex}
+          item={item}
+          index={index + spreads.length * 2}
+          total={spreads.length * 3}
           clickSpreadItem={this.clickSpreadItem}
         />
       );
@@ -163,7 +188,7 @@ export default class Page extends Component {
               padding-top: 5vh;
             `}
           >
-            {Spread[this.state.activeIndex]}
+            {Spread[this.state.activeIndex % spreads.length]}
           </div>
           <div
             css={css`
@@ -185,6 +210,8 @@ export default class Page extends Component {
               `}
             >
               {spreadItems}
+              {spreadItems2}
+              {spreadItems3}
             </div>
           </div>
         </main>
@@ -195,11 +222,9 @@ export default class Page extends Component {
 
 const SpreadItem = ({ activeIndex, index, total, item, clickSpreadItem }) => {
   let left = (index - activeIndex) * 164;
-  let opacity = setOpacity(index, activeIndex, total);
 
   if (activeIndex === 0 && index === total - 1) {
     left = -164;
-    opacity = 0;
   } else if (activeIndex < index) {
     left = (index - activeIndex) * 164 + 40;
   } else if (activeIndex > index + 1) {
@@ -209,10 +234,9 @@ const SpreadItem = ({ activeIndex, index, total, item, clickSpreadItem }) => {
     <div
       css={[
         activeIndex === index ? spreadItemActiveCss : spreadItemCss,
+        setOpacity(index, activeIndex, total),
         css`
           position: absolute;
-          left: ${left}px;
-          opacity: ${opacity};
           /* display: inline-block; */
           margin: 0 10px;
           color: #79665f;
@@ -243,18 +267,30 @@ SpreadItem.propTypes = {
 };
 
 function setOpacity(index, activeIndex, total) {
-  if (activeIndex > 1) {
-    if (activeIndex - 1 === index || activeIndex - 2 === index) {
-      return 0;
-    }
-  } else if (activeIndex === 1) {
-    if (activeIndex - 1 === index || index === total - 1) {
-      return 0;
-    }
-  } else if (activeIndex === 0) {
-    if (index === total - 1 || index === total - 2) {
-      return 0;
-    }
+  let opacity = 1;
+  let left = (index - activeIndex) * 164;
+
+  let activeIndexAdd = activeIndex + total;
+  let indexAdd = index;
+  if (index < activeIndex) {
+    indexAdd += total;
   }
-  return 1;
+  if (activeIndexAdd - 1 >= indexAdd && indexAdd >= activeIndexAdd - 12) {
+    opacity = 0;
+  }
+  if (activeIndexAdd - 1 >= indexAdd && indexAdd >= activeIndexAdd - 6) {
+    left = -164 * (activeIndexAdd - indexAdd);
+  } else if (activeIndex < index) {
+    left = (index - activeIndex) * 164 + 40;
+  } else if (activeIndex > index + 1) {
+    left = (total - activeIndex + index) * 164 + 40;
+  }
+  // if (activeIndexAdd - 2 >= indexAdd && indexAdd >= activeIndexAdd - 6) {
+  //   transition += ", opacity: 0s";
+  // }
+  // if (activeIndex)
+  return css`
+    opacity: ${opacity};
+    left: ${left}px;
+  `;
 }
