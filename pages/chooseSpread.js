@@ -2,8 +2,10 @@
 import PropTypes from "prop-types";
 import { Component } from "react";
 import Layout from "components/Layout/Layout";
-import { css } from "@emotion/react";
+import { Global, css } from "@emotion/react";
 import Spread from "components/Spreads/Spread";
+import { clockwiseKeyframes } from "styles/background";
+import Bubbles from "components/Bubbles/Bubbles";
 
 const spreadItemCss = css`
   width: 144px;
@@ -16,6 +18,7 @@ const spreadItemCss = css`
 `;
 
 const spreadItemActiveCss = css`
+  position: relative;
   width: 180px;
   height: 419px;
 
@@ -36,26 +39,32 @@ const spreads = [
   {
     id: 0,
     name: "凱爾特十字牌陣",
+    en: "CELTIC CROSS",
   },
   {
     id: 1,
     name: "時間之流占卜法",
+    en: "Past-Present-Future",
   },
   {
     id: 2,
     name: "四元素",
+    en: "Four Card",
   },
   {
     id: 3,
     name: "單張牌",
+    en: "One Card",
   },
   {
     id: 4,
     name: "二擇一",
+    en: "Two Choice",
   },
   {
     id: 5,
     name: "四季運勢",
+    en: "Four Seasons",
   },
 ];
 
@@ -194,6 +203,13 @@ export default class Page extends Component {
     });
     return (
       <Layout showFooter={false} showMenu={false}>
+        <Global
+          styles={css`
+            body {
+              overflow: hidden;
+            }
+          `}
+        />
         <div
           css={css`
             position: fixed;
@@ -210,6 +226,46 @@ export default class Page extends Component {
             z-index: -1;
           `}
         ></div>
+        <div>
+          <div
+            className="bg-round"
+            css={css`
+              position: fixed;
+              width: 90vw;
+              height: 90vw;
+              right: -40vw;
+              bottom: -50vw;
+              opacity: 0.4;
+
+              img {
+                width: 100%;
+                height: 100%;
+              }
+            `}
+          >
+            <img
+              src="/images/circle-sun.png"
+              alt="background"
+              css={css`
+                position: absolute;
+                width: 100%;
+                margin: 0 auto;
+              `}
+            />
+            <img
+              src="/images/circle-main.png"
+              alt="background"
+              css={css`
+                position: absolute;
+                width: 100%;
+                animation: ${clockwiseKeyframes} 100s linear infinite;
+              `}
+            />
+          </div>
+          <div className="bubbles-box">
+            <Bubbles />
+          </div>
+        </div>
         <main
           css={css`
             display: flex;
@@ -220,14 +276,12 @@ export default class Page extends Component {
             align-items: center;
           `}
         >
-          {/* {Spread} */}
           <div
             css={css`
               position: relative;
-              flex: 1;
-              width: 45%;
-              padding-top: 45%;
-              margin-right: 5vw;
+              width: calc(50% - 150px);
+              padding-top: calc(50% - 150px);
+              margin-right: 40px;
             `}
           >
             {SpreadItems}
@@ -235,7 +289,7 @@ export default class Page extends Component {
           <div
             css={css`
               white-space: nowrap;
-              width: 45%;
+              width: calc(50% + 90px);
               overflow: hidden;
             `}
           >
@@ -263,15 +317,6 @@ export default class Page extends Component {
 }
 
 const SpreadItem = ({ activeIndex, index, total, item, clickSpreadItem }) => {
-  let left = (index - activeIndex) * 164;
-
-  if (activeIndex === 0 && index === total - 1) {
-    left = -164;
-  } else if (activeIndex < index) {
-    left = (index - activeIndex) * 164 + 40;
-  } else if (activeIndex > index + 1) {
-    left = (total - activeIndex + index) * 164 + 40;
-  }
   return (
     <div
       css={[
@@ -279,15 +324,12 @@ const SpreadItem = ({ activeIndex, index, total, item, clickSpreadItem }) => {
         setOpacity(index, activeIndex, total),
         css`
           position: absolute;
-          /* display: inline-block; */
           margin: 0 10px;
           color: #79665f;
-          writing-mode: vertical-lr;
           cursor: pointer;
           border-radius: 5px;
           font-weight: 300;
           text-align: center;
-          letter-spacing: 0.3em;
           transition: all 0.7s;
         `,
       ]}
@@ -295,7 +337,40 @@ const SpreadItem = ({ activeIndex, index, total, item, clickSpreadItem }) => {
         clickSpreadItem(index);
       }}
     >
-      {item.name}
+      <div
+        css={css`
+          position: fixed;
+          opacity: ${activeIndex === index ? "1" : "0"};
+          transform: ${activeIndex === index
+            ? "translateY(0)"
+            : activeIndex < index
+            ? "translateY(-100px)"
+            : "translateY(100px)"};
+          transition: all ${activeIndex === index ? "0.7s" : "0.6s"};
+          top: calc(50% - 300px);
+          left: calc(50% + 150px);
+          font-family: "Montserrat";
+          font-weight: 700;
+          font-size: 110px;
+          line-height: 112px;
+          text-align: right;
+          letter-spacing: -0.02em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.58);
+        `}
+      >
+        {item.en}
+      </div>
+      <span
+        css={css`
+          display: inline-block;
+          height: 100%;
+          writing-mode: vertical-lr;
+          letter-spacing: 0.3em;
+        `}
+      >
+        {item.name}
+      </span>
     </div>
   );
 };

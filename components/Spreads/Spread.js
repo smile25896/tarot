@@ -77,26 +77,26 @@ export default [
     key={2}
     css={css`
       & > div {
-        width: 26%; // 164 * 90
+        width: 18%; // 164 * 90
       }
     `}
   >
     <Card
       _css={css`
-        top: ${50 - ((164 / 90) * 26) / 2}%;
-        left: 5%;
+        top: ${50 - ((164 / 90) * 18) / 2}%;
+        left: 10%;
       `}
     />
     <Card
       _css={css`
-        top: ${50 - ((164 / 90) * 26) / 2}%;
-        left: ${50 - 13}%;
+        top: ${50 - ((164 / 90) * 18) / 2}%;
+        left: ${50 - 9}%;
       `}
     />
     <Card
       _css={css`
-        top: ${50 - ((164 / 90) * 26) / 2}%;
-        right: 5%;
+        top: ${50 - ((164 / 90) * 18) / 2}%;
+        right: 10%;
       `}
     />
   </div>,
@@ -104,32 +104,32 @@ export default [
     key={3}
     css={css`
       & > div {
-        width: 24%; // 164 * 90
+        width: 18%; // 164 * 90
       }
     `}
   >
     <Card
       _css={css`
-        top: 4%;
-        left: 23.5%;
+        top: 10%;
+        left: 25%;
       `}
     />
     <Card
       _css={css`
-        top: 4%;
-        right: 23.5%;
+        top: 10%;
+        right: 25%;
       `}
     />
     <Card
       _css={css`
-        bottom: 4%;
-        left: 23.5%;
+        bottom: 10%;
+        left: 25%;
       `}
     />
     <Card
       _css={css`
-        bottom: 4%;
-        right: 23.5%;
+        bottom: 10%;
+        right: 25%;
       `}
     />
   </div>,
@@ -137,14 +137,14 @@ export default [
     key={4}
     css={css`
       & > div {
-        width: 30%; // 164 * 90
+        width: 20%; // 164 * 90
       }
     `}
   >
     <Card
       _css={css`
-        top: ${50 - ((164 / 90) * 30) / 2}%;
-        left: ${50 - 15}%;
+        top: ${50 - ((164 / 90) * 20) / 2}%;
+        left: ${50 - 10}%;
       `}
     />
   </div>,
@@ -152,20 +152,20 @@ export default [
     key={5}
     css={css`
       & > div {
-        width: 30%; // 164 * 90
+        width: 18%; // 164 * 90
       }
     `}
   >
     <Card
       _css={css`
-        top: ${50 - ((164 / 90) * 30) / 2}%;
-        left: 15%;
+        top: ${50 - ((164 / 90) * 18) / 2}%;
+        left: 24%;
       `}
     />
     <Card
       _css={css`
-        top: ${50 - ((164 / 90) * 30) / 2}%;
-        right: 15%;
+        top: ${50 - ((164 / 90) * 18) / 2}%;
+        right: 24%;
       `}
     />
   </div>,

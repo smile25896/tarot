@@ -131,33 +131,6 @@ export default class Page extends Component {
       roundTranslate: 0,
     };
 
-    this.bubbles = [
-      {
-        width: Math.random() * 7 + 4,
-        delay: Math.random() * 20 - 20,
-      },
-      {
-        width: Math.random() * 7 + 4,
-        delay: Math.random() * 20 - 20,
-      },
-      {
-        width: Math.random() * 7 + 4,
-        delay: Math.random() * 20 - 20,
-      },
-      {
-        width: Math.random() * 7 + 4,
-        delay: Math.random() * 20 - 20,
-      },
-      {
-        width: Math.random() * 7 + 4,
-        delay: Math.random() * 20 - 20,
-      },
-      {
-        width: Math.random() * 7 + 4,
-        delay: Math.random() * 20 - 20,
-      },
-    ];
-
     // this.handleMouseMove = debounce(this.handleMouseMove, 30);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseScroll = this.handleMouseScroll.bind(this);
@@ -190,7 +163,6 @@ export default class Page extends Component {
         <Content
           left={Number(this.state.left / 40)}
           top={Number(this.state.top / 20)}
-          bubbles={this.bubbles}
           roundTranslate={this.state.roundTranslate}
         />
       </Layout>
@@ -198,10 +170,10 @@ export default class Page extends Component {
   }
 }
 
-function Content({ left, top, bubbles, roundTranslate }) {
+function Content({ left, top, roundTranslate }) {
   return (
     <div>
-      <HomeBg bubbles={bubbles} roundTranslate={roundTranslate} />
+      <HomeBg roundTranslate={roundTranslate} />
       <div
         className="cover-box"
         css={css`

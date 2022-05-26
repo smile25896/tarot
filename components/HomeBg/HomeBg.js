@@ -1,15 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, keyframes } from "@emotion/react";
-
-const clockwiseKeyframes = keyframes`
-  from{
-    transform: rotate(0deg)
-  }
-
-  to{
-    transform: rotate(360deg)
-  }
-`;
+import { clockwiseKeyframes, bubblesCss } from "styles/background";
+import Bubbles from "components/Bubbles/Bubbles";
 
 const whiteCoverKeyframes = keyframes`
   0%{
@@ -60,50 +52,7 @@ const waveCss = css`
   background: white;
 `;
 
-const bubblesKeyframes = keyframes`
-  0%{
-  transform: translateY(170vh);
-  }
-  100%{
-    transform: translateY(0vh);
-  }
-`;
-
-const bubblesBoxCss = css``;
-
-const bubblesCss = css`
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 20vw;
-  width: 10vw;
-  height: 10vw;
-  border-radius: 50%;
-  background: white;
-  opacity: 0.4;
-  animation: ${bubblesKeyframes} 10s linear infinite;
-`;
-
-const HomeBg = ({ bubbles, roundTranslate }) => {
-  const Bubbles = bubbles.map((item, index) => {
-    return (
-      <div
-        key={index}
-        className="bubble"
-        css={[
-          bubblesCss,
-          css`
-            left: ${index * 16}vw;
-            width: ${item.width}vw;
-            height: ${item.width}vw;
-            filter: blur(${item.width}px);
-            animation-delay: ${item.delay}s;
-            animation-duration: ${item.width * 0.7 + 6}s;
-          `,
-        ]}
-      ></div>
-    );
-  });
+const HomeBg = ({ roundTranslate }) => {
   return (
     <div
       css={css`
@@ -245,7 +194,7 @@ const HomeBg = ({ bubbles, roundTranslate }) => {
           overflow: hidden;
           opacity: 0.4;
           /* transition: transform 1s; */
-          ${`transform: translateY(${-roundTranslate}px)`};
+          ${`transform: translateY(${-roundTranslate}px);`}
 
           @media (max-width: 576px) {
             top: 80vh;
@@ -290,8 +239,8 @@ const HomeBg = ({ bubbles, roundTranslate }) => {
           `}
         />
       </div>
-      <div className="bubbles-box" css={[bubblesBoxCss]}>
-        {Bubbles}
+      <div className="bubbles-box">
+        <Bubbles />
       </div>
     </div>
   );
