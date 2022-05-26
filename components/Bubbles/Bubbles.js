@@ -36,7 +36,7 @@ class Bubbles extends Component {
 
   render() {
     return this.bubbles.map((item, index) => {
-      return <Bubble item={item} index={index} />;
+      return <Bubble key={index} item={item} index={index} />;
     });
   }
 }
