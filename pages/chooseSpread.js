@@ -70,9 +70,12 @@ export default class Page extends Component {
 
     this.clickSpreadItem = this.clickSpreadItem.bind(this);
     this.handleWheel = this.handleWheel.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.moveCard = this.moveCard.bind(this);
   }
   componentDidMount() {
     window.addEventListener("wheel", this.handleWheel);
+    window.addEventListener("keydown", this.handleKeyDown);
   }
 
   // componentWillUnmount() {
@@ -94,25 +97,43 @@ export default class Page extends Component {
       this.wheeling = false;
     }, 1000);
     this.wheeling = true;
-
-    let length = spreads.length * 3;
-    let activeIndex = this.state.activeIndex;
     if (e.deltaY > 0) {
+      this.moveCard(1);
+    } else {
+      this.moveCard(-1);
+    }
+  }
+
+  handleKeyDown(e) {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      this.moveCard(1);
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      this.moveCard(-1);
+    }
+  }
+
+  moveCard(move) {
+    let activeIndex = this.state.activeIndex;
+    let length = spreads.length * 3;
+    if (move === 1) {
       if (activeIndex + 1 >= length) {
         activeIndex = 0;
       } else {
         activeIndex += 1;
       }
-    } else {
+      this.setState({
+        activeIndex,
+      });
+    } else if (move === -1) {
       if (activeIndex === 0) {
         activeIndex = length - 1;
       } else {
         activeIndex -= 1;
       }
+      this.setState({
+        activeIndex,
+      });
     }
-    this.setState({
-      activeIndex,
-    });
   }
 
   render() {
@@ -152,6 +173,24 @@ export default class Page extends Component {
         />
       );
     });
+    const SpreadItems = Spread.map((item, index) => {
+      let isActive = index === this.state.activeIndex % spreads.length;
+      return (
+        <div
+          css={css`
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding-top: 100%;
+            opacity: ${isActive ? "1" : "0"};
+            transition: opacity ${isActive ? "0.7s" : "0.6s"};
+          `}
+        >
+          {item}
+        </div>
+      );
+    });
     return (
       <Layout showFooter={false} showMenu={false}>
         <div
@@ -180,15 +219,17 @@ export default class Page extends Component {
             align-items: center;
           `}
         >
+          {/* {Spread} */}
           <div
             css={css`
               position: relative;
               flex: 1;
-              padding-right: 5vw;
-              padding-top: 5vh;
+              width: 45%;
+              padding-top: 45%;
+              margin-right: 5vw;
             `}
           >
-            {Spread[this.state.activeIndex % spreads.length]}
+            {SpreadItems}
           </div>
           <div
             css={css`

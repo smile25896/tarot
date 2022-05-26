@@ -6,9 +6,6 @@ export default [
   <div
     key={1}
     css={css`
-      position: relative;
-      width: 100%;
-      padding-top: 100%;
       & > div {
         width: 13%;
       }
@@ -79,9 +76,6 @@ export default [
   <div
     key={2}
     css={css`
-      position: relative;
-      width: 100%;
-      padding-top: 100%;
       & > div {
         width: 26%; // 164 * 90
       }
@@ -109,9 +103,6 @@ export default [
   <div
     key={3}
     css={css`
-      position: relative;
-      width: 100%;
-      padding-top: 100%;
       & > div {
         width: 24%; // 164 * 90
       }
@@ -145,9 +136,6 @@ export default [
   <div
     key={4}
     css={css`
-      position: relative;
-      width: 100%;
-      padding-top: 100%;
       & > div {
         width: 30%; // 164 * 90
       }
@@ -163,9 +151,6 @@ export default [
   <div
     key={5}
     css={css`
-      position: relative;
-      width: 100%;
-      padding-top: 100%;
       & > div {
         width: 30%; // 164 * 90
       }
@@ -187,9 +172,6 @@ export default [
   <div
     key={6}
     css={css`
-      position: relative;
-      width: 100%;
-      padding-top: 100%;
       & > div {
         width: 16%; // 164 * 90
       }
