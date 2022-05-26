@@ -177,6 +177,7 @@ export default class Page extends Component {
       let isActive = index === this.state.activeIndex % spreads.length;
       return (
         <div
+          key={index}
           css={css`
             position: absolute;
             top: 0;
