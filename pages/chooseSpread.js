@@ -6,6 +6,9 @@ import { Global, css } from "@emotion/react";
 import Spread from "components/Spreads/Spread";
 import { clockwiseKeyframes } from "styles/background";
 import Bubbles from "components/Bubbles/Bubbles";
+import { connect } from "react-redux";
+import { setSpreadId } from "actions/spread";
+import { bindActionCreators } from "redux";
 
 const spreadItemCss = css`
   width: 144px;
@@ -68,7 +71,7 @@ const spreads = [
   },
 ];
 
-export default class Page extends Component {
+class Page extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -81,6 +84,7 @@ export default class Page extends Component {
     this.handleWheel = this.handleWheel.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.moveCard = this.moveCard.bind(this);
+    this.chooseSpread = this.chooseSpread.bind(this);
   }
   componentDidMount() {
     window.addEventListener("wheel", this.handleWheel);
@@ -145,6 +149,11 @@ export default class Page extends Component {
     }
   }
 
+  chooseSpread(id) {
+    console.log(this.props.setSpreadId);
+    this.props.setSpreadId(id);
+  }
+
   render() {
     const spreadItems = spreads.map((item, index) => {
       return (
@@ -155,6 +164,7 @@ export default class Page extends Component {
           index={index}
           total={spreads.length * 3}
           clickSpreadItem={this.clickSpreadItem}
+          chooseSpread={this.chooseSpread}
         />
       );
     });
@@ -167,6 +177,7 @@ export default class Page extends Component {
           index={index + spreads.length}
           total={spreads.length * 3}
           clickSpreadItem={this.clickSpreadItem}
+          chooseSpread={this.chooseSpread}
         />
       );
     });
@@ -179,6 +190,7 @@ export default class Page extends Component {
           index={index + spreads.length * 2}
           total={spreads.length * 3}
           clickSpreadItem={this.clickSpreadItem}
+          chooseSpread={this.chooseSpread}
         />
       );
     });
@@ -316,7 +328,14 @@ export default class Page extends Component {
   }
 }
 
-const SpreadItem = ({ activeIndex, index, total, item, clickSpreadItem }) => {
+const SpreadItem = ({
+  activeIndex,
+  index,
+  total,
+  item,
+  clickSpreadItem,
+  chooseSpread,
+}) => {
   return (
     <div
       css={[
@@ -334,7 +353,11 @@ const SpreadItem = ({ activeIndex, index, total, item, clickSpreadItem }) => {
         `,
       ]}
       onClick={() => {
-        clickSpreadItem(index);
+        if (activeIndex === index) {
+          chooseSpread(item.id);
+        } else {
+          clickSpreadItem(index);
+        }
       }}
     >
       <div
@@ -343,7 +366,7 @@ const SpreadItem = ({ activeIndex, index, total, item, clickSpreadItem }) => {
           opacity: ${activeIndex === index ? "1" : "0"};
           transform: ${activeIndex === index
             ? "translateY(0)"
-            : activeIndex < index
+            : activeIndex > index
             ? "translateY(-100px)"
             : "translateY(100px)"};
           transition: all ${activeIndex === index ? "0.7s" : "0.6s"};
@@ -381,6 +404,7 @@ SpreadItem.propTypes = {
   item: PropTypes.object.isRequired,
   total: PropTypes.number.isRequired,
   clickSpreadItem: PropTypes.func.isRequired,
+  chooseSpread: PropTypes.func.isRequired,
 };
 
 function setOpacity(index, activeIndex, total) {
@@ -402,12 +426,23 @@ function setOpacity(index, activeIndex, total) {
   } else if (activeIndex > index + 1) {
     left = (total - activeIndex + index) * 164 + 40;
   }
-  // if (activeIndexAdd - 2 >= indexAdd && indexAdd >= activeIndexAdd - 6) {
-  //   transition += ", opacity: 0s";
-  // }
-  // if (activeIndex)
   return css`
     opacity: ${opacity};
     left: ${left}px;
   `;
 }
+
+function mapStateToProps(state) {
+  console.log(state.spread);
+  return {
+    spread: state.spread,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setSpreadId: bindActionCreators(setSpreadId, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Page);

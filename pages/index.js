@@ -8,6 +8,7 @@ import LayoutContent from "components/LayoutContent/LayoutContent";
 import PostCard from "components/PostCard/PostCard";
 import LoadingAnimation from "components/LoadingAnimation/LoadingAnimation";
 import Link from "next/link";
+import { connect } from "react-redux";
 
 const floatKeyframes = keyframes`
   0, 100%{
@@ -122,7 +123,7 @@ const showCss = css`
   transition: all 1s ease-out 0.2s;
 `;
 
-export default class Page extends Component {
+class Page extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -485,3 +486,11 @@ function Content({ left, top, roundTranslate }) {
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    spread: state.spread,
+  };
+}
+
+export default connect(mapStateToProps, null)(Page);
