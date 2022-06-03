@@ -9,6 +9,7 @@ import Bubbles from "components/Bubbles/Bubbles";
 import { connect } from "react-redux";
 import { setSpreadId } from "actions/spread";
 import { bindActionCreators } from "redux";
+import Router from "next/router";
 
 const spreadItemCss = css`
   width: 144px;
@@ -76,6 +77,7 @@ class Page extends Component {
     super(props);
     this.state = {
       activeIndex: 0,
+      isShowMask: false,
     };
 
     this.wheeling = false;
@@ -95,9 +97,10 @@ class Page extends Component {
   //   window.removeEventListener("wheel", this.handleWheel);
   // }
 
-  clickSpreadItem(id) {
+  clickSpreadItem(index) {
+    console.log(index);
     this.setState({
-      activeIndex: id,
+      activeIndex: index,
     });
   }
 
@@ -150,8 +153,13 @@ class Page extends Component {
   }
 
   chooseSpread(id) {
-    console.log(this.props.setSpreadId);
     this.props.setSpreadId(id);
+    this.setState({
+      isShowMask: true,
+    });
+    setTimeout(() => {
+      Router.push("shuffle");
+    }, 1100);
   }
 
   render() {
@@ -209,12 +217,12 @@ class Page extends Component {
             transition: opacity ${isActive ? "0.7s" : "0.6s"};
           `}
         >
-          {item}
+          {item()}
         </div>
       );
     });
     return (
-      <Layout showFooter={false} showMenu={false}>
+      <Layout showFooter={false} showMenu={false} colorfulBg={true}>
         <Global
           styles={css`
             body {
@@ -222,22 +230,6 @@ class Page extends Component {
             }
           `}
         />
-        <div
-          css={css`
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom: 0;
-            background: linear-gradient(
-              180deg,
-              #f4dfdf -26.67%,
-              #f5ede4 49.7%,
-              #e6f4f2 92.87%
-            );
-            z-index: -1;
-          `}
-        ></div>
         <div>
           <div
             className="bg-round"
@@ -323,6 +315,20 @@ class Page extends Component {
             </div>
           </div>
         </main>
+        <div
+          css={css`
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #000;
+            visibility: ${this.state.isShowMask ? "visible" : "hidden"};
+            opacity: ${this.state.isShowMask ? "1" : "0"};
+            transition: opacity 1s;
+            z-index: 999;
+          `}
+        ></div>
       </Layout>
     );
   }
@@ -433,7 +439,6 @@ function setOpacity(index, activeIndex, total) {
 }
 
 function mapStateToProps(state) {
-  console.log(state.spread);
   return {
     spread: state.spread,
   };

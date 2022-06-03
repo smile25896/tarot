@@ -480,8 +480,9 @@ const Card = ({ cardId, direction, isOpen }) => {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 10px;
-        width: 140px;
+        width: 8.5vw;
+        /* filter: drop-shadow(-2px 2px 10px rgba(64, 40, 35, 0.04))
+          drop-shadow(-4px 0px 5px rgba(64, 44, 35, 0.03)); */
       `}
     >
       <img
@@ -489,7 +490,7 @@ const Card = ({ cardId, direction, isOpen }) => {
           width: 100%;
           ${direction === false ? "transform: rotate(180deg)" : ""}
         `}
-        src={isOpen ? "/tarots/1.jpeg" : "/tarots/back.png"}
+        src={isOpen ? "/tarots/1.jpeg" : "/images/card-2.png"}
       />
       {isOpen
         ? `${TarotCards[cardId].name} (${direction === true ? "正位" : "逆位"})`

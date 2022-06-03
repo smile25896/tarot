@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 import { css } from "@emotion/react";
 
-const Card = ({ width = "100px", _css }) => {
+const Card = ({ _css }) => {
   return (
     <div
       css={[

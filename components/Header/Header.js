@@ -18,6 +18,7 @@ const Header = ({ showMenu }) => {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        z-index: 99;
       `}
     >
       <Link href="/">
