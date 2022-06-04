@@ -480,21 +480,59 @@ const Card = ({ cardId, direction, isOpen }) => {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 8.5vw;
-        /* filter: drop-shadow(-2px 2px 10px rgba(64, 40, 35, 0.04))
-          drop-shadow(-4px 0px 5px rgba(64, 44, 35, 0.03)); */
+        perspective: 500px;
+        & > div {
+          backface-visibility: hidden;
+          transition: transform 1s;
+        }
       `}
     >
-      <img
+      <div
+        className="front"
         css={css`
-          width: 100%;
-          ${direction === false ? "transform: rotate(180deg)" : ""}
+          ${isOpen ? "" : "transform: rotateY(-180deg);"};
         `}
-        src={isOpen ? "/tarots/1.jpeg" : "/images/card-2.png"}
-      />
-      {isOpen
-        ? `${TarotCards[cardId].name} (${direction === true ? "正位" : "逆位"})`
-        : null}
+      >
+        <img
+          css={css`
+            width: 100%;
+            ${direction === false ? "transform: rotate(180deg)" : ""}
+          `}
+          src="/tarots/1.jpeg"
+        />
+      </div>
+      <div
+        className="back"
+        css={css`
+          position: absolute;
+          top: 0;
+          left: 0;
+          ${isOpen ? "transform: rotateY(180deg);" : ""};
+        `}
+      >
+        <img
+          css={css`
+            width: 100%;
+            ${direction === false ? "transform: rotate(180deg)" : ""}
+          `}
+          src="/images/card-2.png"
+        />
+      </div>
+      <span
+        css={css`
+          position: absolute;
+          bottom: -1.6em;
+          width: 200%;
+          font-size: 12px;
+          text-align: center;
+        `}
+      >
+        {isOpen
+          ? `${TarotCards[cardId].name} (${
+              direction === true ? "正位" : "逆位"
+            })`
+          : null}
+      </span>
     </div>
   );
 };

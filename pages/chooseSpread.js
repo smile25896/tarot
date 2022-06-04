@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { setSpreadId } from "actions/spread";
 import { bindActionCreators } from "redux";
 import Router from "next/router";
+import { spreads } from "data/spreads";
 
 const spreadItemCss = css`
   width: 144px;
@@ -38,39 +39,6 @@ const spreadItemActiveCss = css`
   font-size: 32px;
   line-height: 164px;
 `;
-
-const spreads = [
-  {
-    id: 0,
-    name: "凱爾特十字牌陣",
-    en: "CELTIC CROSS",
-  },
-  {
-    id: 1,
-    name: "時間之流占卜法",
-    en: "Past-Present-Future",
-  },
-  {
-    id: 2,
-    name: "四元素",
-    en: "Four Card",
-  },
-  {
-    id: 3,
-    name: "單張牌",
-    en: "One Card",
-  },
-  {
-    id: 4,
-    name: "二擇一",
-    en: "Two Choice",
-  },
-  {
-    id: 5,
-    name: "四季運勢",
-    en: "Four Seasons",
-  },
-];
 
 class Page extends Component {
   constructor(props) {

@@ -5,11 +5,12 @@ import Layout from "components/Layout/Layout";
 import { Global, css } from "@emotion/react";
 import Spread from "components/Spreads/Spread";
 import { clockwiseKeyframes } from "styles/background";
-import Bubbles from "components/Bubbles/Bubbles";
 import { connect } from "react-redux";
 import { setSpreadId } from "actions/spread";
 import { bindActionCreators } from "redux";
 import Card from "components/Card/Card";
+import { spreads } from "data/spreads";
+import { CARD_STATUS_EMPTY, CARD_STATUS_NORMAL } from "constant/data";
 
 const SHUFFLE = 0; // 洗牌階段
 const COLLASPE = 1; // 洗牌之後將牌疊合至左側
@@ -18,6 +19,8 @@ const CUT = 3; // 切牌階段
 const AFTER_CUT = 4; // 洗牌之後將牌疊合至左側
 const CHOOSE_DISPLAY = 5;
 const CHOOSE = 6;
+const SHOW_BACK = 7;
+const SHOW = 8;
 
 class Shuffle extends Component {
   constructor(props) {
@@ -25,11 +28,18 @@ class Shuffle extends Component {
     this.state = {
       isShowMask: true,
       scene: 1,
-      cards: Array.from({ length: 78 }, (_, i) => i),
+      cards: Array.from({ length: 78 }, (_, i) => {
+        return {
+          id: i,
+          chosen: false,
+          direction: true,
+        };
+      }),
       shuffleStatus: SHUFFLE,
       currentHoverIndex: -1,
       cutIndexes: [],
-      shuffleStatus: SHUFFLE,
+      cardStatus: [],
+      chosenCards: [],
     };
 
     this.hiddenMask = this.hiddenMask.bind(this);
@@ -43,6 +53,12 @@ class Shuffle extends Component {
 
   componentDidMount() {
     setTimeout(this.hiddenMask, 500);
+    this.setState({
+      cardStatus: Array.from(
+        { length: spreads[this.props.spread.spreadId].count },
+        () => CARD_STATUS_EMPTY
+      ),
+    });
   }
 
   /**
@@ -70,11 +86,12 @@ class Shuffle extends Component {
   shuffle() {
     let array = this.state.cards;
     // let array = this.state.emptyCards;
-    let currentIndex = array.length,
+    let currentIndex = array.length - 1,
       randomIndex;
 
     // While there remain elements to shuffle...
     while (currentIndex != 0) {
+      array[currentIndex].direction = Math.floor(Math.random() * 2) === 1;
       // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
@@ -101,6 +118,7 @@ class Shuffle extends Component {
       case DISPLAY:
       case AFTER_CUT:
       case CHOOSE_DISPLAY:
+      case SHOW_BACK:
         setTimeout(() => {
           this.switchCardsStatus(status + 1);
         }, 1500);
@@ -151,6 +169,32 @@ class Shuffle extends Component {
     if (cutIndexes.length === 2) {
       setTimeout(() => {
         this.switchCardsStatus(AFTER_CUT);
+      }, 600);
+    }
+  }
+
+  chooseCard(chosenCard, chosenCardIndex) {
+    if (
+      this.state.chosenCards.length < spreads[this.props.spread.spreadId].count
+    ) {
+      let chosenCards = this.state.chosenCards;
+      let cardStatus = this.state.cardStatus.slice();
+      let cards = this.state.cards;
+      cards[chosenCardIndex].chosen = true;
+      cardStatus[chosenCards.length] = CARD_STATUS_NORMAL;
+
+      chosenCards.push({ id: chosenCard.id, direction: chosenCard.direction });
+      this.setState({
+        chosenCards,
+        cardStatus,
+        cards,
+      });
+    }
+    if (
+      this.state.chosenCards.length >= spreads[this.props.spread.spreadId].count
+    ) {
+      setTimeout(() => {
+        this.switchCardsStatus(SHOW_BACK);
       }, 600);
     }
   }
@@ -213,10 +257,9 @@ class Shuffle extends Component {
               : this.state.shuffleStatus === CHOOSE_DISPLAY ||
                 this.state.shuffleStatus === CHOOSE
               ? "calc(90vh + 0vw)"
+              : this.state.shuffleStatus >= SHOW_BACK
+              ? "120vh"
               : "41vh"};
-            /* bottom: ${this.state.shuffleStatus === CHOOSE
-              ? "-10vw"
-              : "unset"}; */
             left: ${this.state.shuffleStatus === SHUFFLE
               ? `${leftRandom * 50}vh`
               : this.state.shuffleStatus === COLLASPE ||
@@ -232,6 +275,7 @@ class Shuffle extends Component {
               : "all 1.5s cubic-bezier(0.55, 0, 0.43, 1.01), z-index 0s"};
             z-index: ${zIndex};
             cursor: pointer;
+            display: ${item.chosen ? "none" : "block"};
             &:hover {
               ${this.state.shuffleStatus === CHOOSE
                 ? "transform: translateY(-3vw);"
@@ -243,6 +287,8 @@ class Shuffle extends Component {
               this.shuffle(index);
             } else if (this.state.shuffleStatus === CUT) {
               this.cutCards(index);
+            } else if (this.state.shuffleStatus === CHOOSE) {
+              this.chooseCard(item, index);
             }
           }}
           onMouseOver={() => {
@@ -258,7 +304,13 @@ class Shuffle extends Component {
             }
           }}
         >
-          <Card cardId={item} isOpen={false} />
+          <div
+            css={css`
+              width: 8.5vw;
+            `}
+          >
+            <Card cardId={item.id} isOpen={false} />
+          </div>
         </div>
       );
     });
@@ -309,12 +361,13 @@ class Shuffle extends Component {
           </div>
         </div>
 
-        {this.state.shuffleStatus === CHOOSE ||
-        this.state.shuffleStatus === CHOOSE_DISPLAY ? (
+        {this.state.shuffleStatus >= CHOOSE ? (
           <div
             css={css`
               position: relative;
-              top: 5vh;
+              top: ${this.state.shuffleStatus < SHOW_BACK
+                ? "5vh"
+                : "calc(50vh - 25vw)"};
               left: 25vw;
               width: 50vw;
               height: 50vw;
@@ -324,7 +377,11 @@ class Shuffle extends Component {
               transition: all 1s;
             `}
           >
-            {Spread[this.props.spread.spreadId]()}
+            {Spread[this.props.spread.spreadId](
+              this.state.cardStatus,
+              this.state.chosenCards,
+              this.state.shuffleStatus >= SHOW_BACK
+            )}
           </div>
         ) : null}
 

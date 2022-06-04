@@ -1,8 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import PropTypes from "prop-types";
 import { css } from "@emotion/react";
+import {
+  CARD_STATUS_TRANSLUCENT,
+  CARD_STATUS_EMPTY,
+  CARD_STATUS_NORMAL,
+} from "constant/data";
+import TarotCard from "components/Card/Card";
 
-const Card = ({ _css }) => {
+const Card = ({ _css, status = CARD_STATUS_TRANSLUCENT, card, isOpen }) => {
   return (
     <div
       css={[
@@ -12,13 +18,26 @@ const Card = ({ _css }) => {
         _css,
       ]}
     >
-      <img
-        css={css`
-          width: 100%;
-          height: 100%;
-        `}
-        src="/images/card-3.png"
-      ></img>
+      {status !== CARD_STATUS_NORMAL ? (
+        <img
+          css={css`
+            width: 100%;
+            height: 100%;
+            ${status === CARD_STATUS_EMPTY ? "border: 1px dashed blue" : ""};
+          `}
+          src={
+            status === CARD_STATUS_NORMAL
+              ? "/images/card-2.png"
+              : "/images/card-3.png"
+          }
+        ></img>
+      ) : (
+        <TarotCard
+          cardId={card.id}
+          direction={card.direction}
+          isOpen={isOpen}
+        />
+      )}
     </div>
   );
 };
