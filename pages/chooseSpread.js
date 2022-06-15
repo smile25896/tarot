@@ -15,7 +15,7 @@ import { spreads } from "data/spreads";
 const spreadItemCss = css`
   width: 144px;
   height: 336px;
-  background: #ffffff;
+  background: rgb(255 255 255 / 60%);
 
   border: 1px solid #d1ccca;
   font-size: 22px;
