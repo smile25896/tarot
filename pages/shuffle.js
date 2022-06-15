@@ -495,17 +495,8 @@ class Shuffle extends Component {
   }
 }
 
-function randomIntFromInterval(min, max) {
-  if (max < min) {
-    let tmp = max;
-    max = min;
-    min = tmp;
-  }
-  // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 function mapStateToProps(state) {
+  console.log(state.spread);
   return {
     spread: state.spread,
   };

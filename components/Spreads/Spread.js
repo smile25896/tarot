@@ -138,7 +138,6 @@ const spreadData = [
 
 export default spreadData.map((item) => {
   return (cardStatus = [], chosenCards = [], isOpen = false) => {
-    console.log(chosenCards);
     const cardItems = item.cardPosition.map((cardItem, index) => {
       return (
         <Card
