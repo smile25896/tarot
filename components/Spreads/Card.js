@@ -23,11 +23,15 @@ const Card = ({ _css, status = CARD_STATUS_TRANSLUCENT, card, isOpen }) => {
           css={css`
             width: 100%;
             height: 100%;
-            ${status === CARD_STATUS_EMPTY ? "border: 1px dashed blue" : ""};
+            /* ${status === CARD_STATUS_EMPTY
+              ? "border: 1px dashed blue"
+              : ""}; */
           `}
           src={
             status === CARD_STATUS_NORMAL
               ? "/images/card-2.png"
+              : status === CARD_STATUS_EMPTY
+              ? "/images/card-none.png"
               : "/images/card-3.png"
           }
         ></img>

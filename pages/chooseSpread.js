@@ -15,7 +15,7 @@ import { spreads } from "data/spreads";
 const spreadItemCss = css`
   width: 144px;
   height: 336px;
-  background: rgb(255 255 255 / 60%);
+  background: rgb(255 255 255 / 100%);
 
   border: 1px solid #d1ccca;
   font-size: 22px;
@@ -27,17 +27,18 @@ const spreadItemActiveCss = css`
   width: 180px;
   height: 419px;
 
-  background: radial-gradient(
-    284.45% 94.63% at 71.91% 0%,
-    #f5e4e1 0.01%,
-    rgba(245, 237, 228, 0.73) 46.26%,
-    rgba(230, 244, 242, 0.31) 69.68%,
-    rgba(255, 255, 255, 1) 99.99%,
-    rgba(255, 255, 255, 1) 100%
+  background: linear-gradient(
+    194.49deg,
+    #f5e4e1 4.8%,
+    rgba(245, 237, 228, 0.73) 40.71%,
+    rgba(230, 244, 242, 0.31) 58.9%,
+    rgba(255, 255, 255, 0) 82.44%,
+    rgba(255, 255, 255, 0) 82.44%
   );
   border: 8px solid #ffffff;
   font-size: 32px;
   line-height: 164px;
+  box-shadow: 0px 0px 35px 0px #402c2312;
 `;
 
 class Page extends Component {
@@ -261,7 +262,7 @@ class Page extends Component {
           <div
             css={css`
               white-space: nowrap;
-              width: calc(50% + 90px);
+              width: calc(50% + 120px);
               overflow: hidden;
             `}
           >
@@ -271,6 +272,7 @@ class Page extends Component {
                 height: 100vh;
                 display: flex;
                 align-items: center;
+                transform: translateX(30px);
                 transition: transform 0.7s;
                 /* transform: ${`translateX(${
                   this.state.activeIndex * -164
@@ -364,6 +366,7 @@ const SpreadItem = ({
           height: 100%;
           writing-mode: vertical-lr;
           letter-spacing: 0.3em;
+          color: #54433d;
         `}
       >
         {item.name}

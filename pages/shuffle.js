@@ -231,7 +231,7 @@ class Shuffle extends Component {
         if (
           this.state.currentHoverIndex === -1 ||
           (this.state.cutIndexes.length === 1 &&
-            this.state.cutIndexes[0] < index) ||
+            this.state.cutIndexes[0] <= index) ||
           this.state.cutIndexes.length === 2
         ) {
         } else if (this.state.currentHoverIndex < index) {
@@ -365,12 +365,10 @@ class Shuffle extends Component {
           <div
             css={css`
               position: relative;
-              top: ${this.state.shuffleStatus < SHOW_BACK
-                ? "5vh"
-                : "calc(50vh - 25vw)"};
-              left: 25vw;
-              width: 50vw;
-              height: 50vw;
+              top: ${this.state.shuffleStatus < SHOW_BACK ? "10vh" : "15vh"};
+              left: calc(50vw - 35vh);
+              width: 70vh;
+              height: 70vh;
               opacity: ${this.state.shuffleStatus === CHOOSE_DISPLAY
                 ? "0"
                 : "1"};
@@ -428,11 +426,9 @@ class Shuffle extends Component {
               className="shuffle-box"
               css={css`
                 position: fixed;
-                top: ${this.state.shuffleStatus === SHUFFLE
-                  ? "calc(40vh - 220px)"
-                  : "0"};
+                top: ${this.state.shuffleStatus === SHUFFLE ? "10vh" : "0"};
                 left: ${this.state.shuffleStatus === SHUFFLE
-                  ? "calc(50vw - 220px)"
+                  ? "calc(50vw - 33vh)"
                   : "0"};
                 /* width: 100vw;
                 height: 100vh; */

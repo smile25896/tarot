@@ -1,7 +1,7 @@
 import { SET_SPREAD_ID } from "constant/action";
 
 const initState = {
-  spreadId: 1,
+  spreadId: 0,
 };
 
 export default function (state = initState, action) {

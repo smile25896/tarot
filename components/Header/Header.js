@@ -13,7 +13,8 @@ const Header = ({ showMenu }) => {
   return (
     <header
       css={css`
-        position: ${showMenu ? "static" : "fixed"};
+        position: fixed;
+        width: 100%;
         padding: 30px 45px;
         display: flex;
         justify-content: space-between;
