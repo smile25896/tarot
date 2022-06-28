@@ -347,7 +347,7 @@ const SpreadItem = ({
             : "translateY(100px)"};
           transition: all ${activeIndex === index ? "0.7s" : "0.6s"};
           top: calc(50% - 300px);
-          left: calc(50% + 150px);
+          left: 50%;
           font-family: "Montserrat";
           font-weight: 700;
           font-size: 110px;

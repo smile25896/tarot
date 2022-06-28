@@ -70,6 +70,10 @@ const circleBtnCss = css`
   justify-content: center;
   align-items: center;
 
+  & > img {
+    transition: all 0.3s;
+  }
+
   &::before {
     position: absolute;
     content: "";
@@ -227,6 +231,10 @@ function Content({ left, top, roundTranslate }) {
 
                   &:hover .circle-btn {
                     transform: scale(1.7);
+
+                    img {
+                      transform: scale(0.6);
+                    }
 
                     &::before {
                       opacity: 1;

@@ -117,7 +117,8 @@ const PostCard = ({ link }) => {
             css={css`
               position: absolute;
               bottom: 20px;
-              padding: 10px 5px 10px 5px;
+              font-size: 16px;
+              padding: 17px 8px 10px 8px;
               border-radius: 0px 5px 5px 0px;
               background-color: white;
               -webkit-writing-mode: vertical-lr;
@@ -146,8 +147,8 @@ const PostCard = ({ link }) => {
         <div
           css={css`
             font-weight: 400;
-            font-size: 18px;
-            line-height: 30px;
+            font-size: 16px;
+            line-height: 28px;
             text-align: center;
             letter-spacing: 0.04em;
             text-transform: uppercase;
