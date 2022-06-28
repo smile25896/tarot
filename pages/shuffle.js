@@ -27,7 +27,7 @@ class Shuffle extends Component {
     super(props);
     this.state = {
       isShowMask: true,
-      scene: 1,
+      scene: 2,
       cards: Array.from({ length: 78 }, (_, i) => {
         return {
           id: i,
@@ -437,6 +437,36 @@ class Shuffle extends Component {
             >
               {cardItems}
             </div>
+            {/* ↓ 洗牌的提示圈圈 ↓ */}
+            <div
+              css={css`
+                position: absolute;
+                top: 30vh;
+                left: 40vw;
+                width: 50px;
+                height: 50px;
+                border: 1px solid #f4dfdf;
+                box-shadow: 0 0 5px #ebbfbf, 0 0 10px #f1e1d0, 0 0 20px #e6f4f2;
+                border-radius: 50%;
+                /* background: linear-gradient(75deg, #f4dfdf, #f5ede4, #e6f4f2); */
+                cursor: pointer;
+
+                span {
+                  display: block;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 50px;
+                  height: 50px;
+                  /* border: 1px solid red; */
+                  border-radius: 50%;
+                  /* background: linear-gradient(75deg, #f4dfdf, #f5ede4, #e6f4f2); */
+                }
+              `}
+            ></div>
+            {/* ↑ 洗牌的提示圈圈 ↑ */}
+
+            {/* ↓ 下一步的button ↓ */}
             <div
               css={css`
                 position: fixed;
@@ -470,6 +500,7 @@ class Shuffle extends Component {
                 <img src="/images/btn-start.png" />
               </div>
             </div>
+            {/* ↑ 下一步的button ↑ */}
           </div>
         ) : null}
         <div
