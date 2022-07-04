@@ -386,123 +386,136 @@ class Shuffle extends Component {
           </div>
         ) : null}
 
-        {this.state.scene === 1 ? (
-          <div className="scene1">
+        <div
+          className="scene1"
+          css={css`
+            visibility: ${this.state.scene === 1 ? "visable" : "hidden"};
+            z-index: ${this.state.scene === 1 ? "2" : "1"};
+            opacity: ${this.state.scene === 1 ? "1" : "0"};
+            transition: all 1s;
+          `}
+        >
+          <div
+            css={css`
+              position: fixed;
+              top: calc(50vh - 29px);
+              width: 100%;
+              text-align: center;
+              font-style: normal;
+              font-weight: 300;
+              font-size: 40px;
+              line-height: 58px;
+              text-align: center;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              color: #54433d;
+            `}
+          >
+            請在心中默念你的問題
             <div
               css={css`
-                position: fixed;
-                top: calc(50vh - 29px);
-                width: 100%;
-                text-align: center;
-                font-style: normal;
-                font-weight: 300;
-                font-size: 40px;
-                line-height: 58px;
-                text-align: center;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-                color: #54433d;
+                width: 66px;
+                height: 66px;
+                margin: 17vh auto;
+                cursor: pointer;
+                img {
+                  width: 100%;
+                }
               `}
+              onClick={() => {
+                this.switchScene(2);
+              }}
             >
-              請在心中默念你的問題
-              <div
-                css={css`
-                  width: 66px;
-                  height: 66px;
-                  margin: 17vh auto;
-                  cursor: pointer;
-                  img {
-                    width: 100%;
-                  }
-                `}
-                onClick={() => {
-                  this.switchScene(2);
-                }}
-              >
-                <img src="/images/btn-start.png" />
-              </div>
+              <img src="/images/btn-start.png" />
             </div>
           </div>
-        ) : this.state.scene === 2 ? (
-          <div className="scene2">
-            <div
-              className="shuffle-box"
-              css={css`
-                position: fixed;
-                top: ${this.state.shuffleStatus === SHUFFLE ? "10vh" : "0"};
-                left: ${this.state.shuffleStatus === SHUFFLE
-                  ? "calc(50vw - 33vh)"
-                  : "0"};
-                /* width: 100vw;
+        </div>
+        <div
+          className="scene2"
+          css={css`
+            visibility: ${this.state.scene === 2 ? "visable" : "hidden"};
+            z-index: ${this.state.scene === 2 ? "2" : "1"};
+            opacity: ${this.state.scene === 2 ? "1" : "0"};
+            transition: all 1s;
+          `}
+        >
+          <div
+            className="shuffle-box"
+            css={css`
+              position: fixed;
+              top: ${this.state.shuffleStatus === SHUFFLE ? "10vh" : "0"};
+              left: ${this.state.shuffleStatus === SHUFFLE
+                ? "calc(50vw - 33vh)"
+                : "0"};
+              /* width: 100vw;
                 height: 100vh; */
-                transition: all 1.5s cubic-bezier(0.55, 0, 0.43, 1.01);
-              `}
-            >
-              {cardItems}
-            </div>
-            {/* ↓ 洗牌的提示圈圈 ↓ */}
-            <CircleButton
-              shuffle={this.shuffle}
-              top={30}
-              left={60}
-              isShow={this.state.circleShow === 0}
-            />
-            <CircleButton
-              shuffle={this.shuffle}
-              top={40}
-              left={40}
-              isShow={this.state.circleShow === 1}
-            />
-            <CircleButton
-              shuffle={this.shuffle}
-              top={60}
-              left={50}
-              isShow={this.state.circleShow === 2}
-            />
-            {/* ↑ 洗牌的提示圈圈 ↑ */}
+              transition: all 1.5s cubic-bezier(0.55, 0, 0.43, 1.01);
+            `}
+          >
+            {cardItems}
+          </div>
+          {/* ↓ 洗牌的提示圈圈 ↓ */}
+          <CircleButton
+            shuffle={this.shuffle}
+            top={30}
+            left={60}
+            isShow={this.state.circleShow === 0}
+          />
+          <CircleButton
+            shuffle={this.shuffle}
+            top={40}
+            left={40}
+            isShow={this.state.circleShow === 1}
+          />
+          <CircleButton
+            shuffle={this.shuffle}
+            top={60}
+            left={50}
+            isShow={this.state.circleShow === 2}
+          />
+          {/* ↑ 洗牌的提示圈圈 ↑ */}
 
-            {/* ↓ 下一步的button ↓ */}
+          {/* ↓ 下一步的button ↓ */}
+          <div
+            css={css`
+              position: fixed;
+              width: 100%;
+              text-align: center;
+              bottom: 6vh;
+              /* display: ${this.state.shuffleStatus > SHUFFLE ||
+              this.state.circleShow <= 2
+                ? "none"
+                : "block"}; */
+            `}
+          >
             <div
               css={css`
-                position: fixed;
-                width: 100%;
-                text-align: center;
-                bottom: 6vh;
-                /* display: ${this.state.shuffleStatus > SHUFFLE ||
-                this.state.circleShow <= 2
-                  ? "none"
-                  : "block"}; */
+                width: 66px;
+                height: 66px;
+                margin: 0 auto;
+                cursor: pointer;
+                visibility: ${this.state.shuffleStatus === SHUFFLE &&
+                this.state.circleShow > 2
+                  ? "visible"
+                  : "hidden"};
+                opacity: ${this.state.shuffleStatus === SHUFFLE &&
+                this.state.circleShow > 2
+                  ? "1"
+                  : "0"};
+                transition: all 1s ease-in-out 0.3s;
+                img {
+                  width: 100%;
+                }
               `}
+              onClick={() => {
+                this.switchCardsStatus(COLLASPE);
+              }}
             >
-              <div
-                css={css`
-                  width: 66px;
-                  height: 66px;
-                  margin: 0 auto;
-                  cursor: pointer;
-                  visibility: ${this.state.shuffleStatus === SHUFFLE &&
-                  this.state.circleShow > 2
-                    ? "visible"
-                    : "hidden"};
-                  opacity: ${this.state.shuffleStatus === SHUFFLE &&
-                  this.state.circleShow > 2
-                    ? "1"
-                    : "0"};
-                  transition: all 1s ease-in-out 0.3s;
-                  img {
-                    width: 100%;
-                  }
-                `}
-                onClick={() => {
-                  this.switchCardsStatus(COLLASPE);
-                }}
-              >
-                <img src="/images/btn-start.png" />
-              </div>
+              <img src="/images/btn-start.png" />
             </div>
-            {/* ↑ 下一步的button ↑ */}
           </div>
-        ) : null}
+          {/* ↑ 下一步的button ↑ */}
+        </div>
         <div
           css={css`
             position: fixed;
