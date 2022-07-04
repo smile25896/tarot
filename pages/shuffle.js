@@ -11,6 +11,7 @@ import { bindActionCreators } from "redux";
 import Card from "components/Card/Card";
 import { spreads } from "data/spreads";
 import { CARD_STATUS_EMPTY, CARD_STATUS_NORMAL } from "constant/data";
+import CircleButton from "components/CircleButton/CircleButton";
 
 const SHUFFLE = 0; // 洗牌階段
 const COLLASPE = 1; // 洗牌之後將牌疊合至左側
@@ -40,6 +41,7 @@ class Shuffle extends Component {
       cutIndexes: [],
       cardStatus: [],
       chosenCards: [],
+      circleShow: 0, // 洗牌階段時，顯示第幾個提示點擊圈圈
     };
 
     this.hiddenMask = this.hiddenMask.bind(this);
@@ -106,6 +108,7 @@ class Shuffle extends Component {
     this.setState({
       cards: array,
       shuffleStatus: SHUFFLE,
+      circleShow: this.state.circleShow + 1,
     });
   }
 
@@ -284,7 +287,7 @@ class Shuffle extends Component {
           `}
           onClick={() => {
             if (this.state.shuffleStatus === SHUFFLE) {
-              this.shuffle(index);
+              this.shuffle();
             } else if (this.state.shuffleStatus === CUT) {
               this.cutCards(index);
             } else if (this.state.shuffleStatus === CHOOSE) {
@@ -438,32 +441,24 @@ class Shuffle extends Component {
               {cardItems}
             </div>
             {/* ↓ 洗牌的提示圈圈 ↓ */}
-            <div
-              css={css`
-                position: absolute;
-                top: 30vh;
-                left: 40vw;
-                width: 50px;
-                height: 50px;
-                border: 1px solid #f4dfdf;
-                box-shadow: 0 0 5px #ebbfbf, 0 0 10px #f1e1d0, 0 0 20px #e6f4f2;
-                border-radius: 50%;
-                /* background: linear-gradient(75deg, #f4dfdf, #f5ede4, #e6f4f2); */
-                cursor: pointer;
-
-                span {
-                  display: block;
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 50px;
-                  height: 50px;
-                  /* border: 1px solid red; */
-                  border-radius: 50%;
-                  /* background: linear-gradient(75deg, #f4dfdf, #f5ede4, #e6f4f2); */
-                }
-              `}
-            ></div>
+            <CircleButton
+              shuffle={this.shuffle}
+              top={30}
+              left={60}
+              isShow={this.state.circleShow === 0}
+            />
+            <CircleButton
+              shuffle={this.shuffle}
+              top={40}
+              left={40}
+              isShow={this.state.circleShow === 1}
+            />
+            <CircleButton
+              shuffle={this.shuffle}
+              top={60}
+              left={50}
+              isShow={this.state.circleShow === 2}
+            />
             {/* ↑ 洗牌的提示圈圈 ↑ */}
 
             {/* ↓ 下一步的button ↓ */}
@@ -473,9 +468,10 @@ class Shuffle extends Component {
                 width: 100%;
                 text-align: center;
                 bottom: 6vh;
-                display: ${this.state.shuffleStatus > SHUFFLE
+                /* display: ${this.state.shuffleStatus > SHUFFLE ||
+                this.state.circleShow <= 2
                   ? "none"
-                  : "block"};
+                  : "block"}; */
               `}
             >
               <div
@@ -484,10 +480,14 @@ class Shuffle extends Component {
                   height: 66px;
                   margin: 0 auto;
                   cursor: pointer;
-                  visibility: ${this.state.shuffleStatus === SHUFFLE
+                  visibility: ${this.state.shuffleStatus === SHUFFLE &&
+                  this.state.circleShow > 2
                     ? "visible"
                     : "hidden"};
-                  opacity: ${this.state.shuffleStatus === SHUFFLE ? "1" : "0"};
+                  opacity: ${this.state.shuffleStatus === SHUFFLE &&
+                  this.state.circleShow > 2
+                    ? "1"
+                    : "0"};
                   transition: all 1s ease-in-out 0.3s;
                   img {
                     width: 100%;
