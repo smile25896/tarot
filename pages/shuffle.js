@@ -28,7 +28,7 @@ class Shuffle extends Component {
     super(props);
     this.state = {
       isShowMask: true,
-      scene: 2,
+      scene: 1,
       cards: Array.from({ length: 78 }, (_, i) => {
         return {
           id: i,
