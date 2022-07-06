@@ -55,9 +55,10 @@ const Footer = () => {
                 line-height: 36px;
                 text-align: right;
                 color: #988e88;
-                width: 50vw;
+                margin-left: 100px;
                 @media (max-width: 576px) {
                   margin-top: 50px;
+                  margin-left: 0px;
                   width: 100%;
                   text-align: left;
                 }
