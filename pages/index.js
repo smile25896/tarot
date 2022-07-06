@@ -19,6 +19,18 @@ const floatKeyframes = keyframes`
   }
 `;
 
+const cardShadowKeyframes = keyframes`
+  0%{
+    transform: scaleX(1.1) scaleY(1);
+  }
+  50%{
+    transform: scaleX(1) scaleY(1.05);
+  }
+  100%{
+    transform: scaleX(1.1) scaleY(1);
+  }
+`;
+
 const cardImageOutterCss = css`
   width: 15vw;
   position: absolute;
@@ -360,6 +372,7 @@ function Content({ left, top, roundTranslate }) {
                 position: absolute;
                 width: 30vw;
                 top: 36vw;
+
                 @media (max-width: 1080px) {
                   top: 37vw;
                 }
@@ -374,6 +387,7 @@ function Content({ left, top, roundTranslate }) {
                 }
 
                 & img {
+                  animation: ${cardShadowKeyframes} 3.5s ease-in-out infinite;
                   width: 100%;
                 }
               `}
