@@ -2,8 +2,9 @@
 import { Component } from "react";
 import Layout from "components/Layout/Layout";
 import { css, keyframes } from "@emotion/react";
-import HomeBg from "components/HomeBg/HomeBg";
 import Title from "components/Title/Title";
+import HomeBg from "components/HomeBg/HomeBg";
+import Opening from "components/Opening/Opening";
 import LayoutContent from "components/LayoutContent/LayoutContent";
 import PostCard from "components/PostCard/PostCard";
 import LoadingAnimation from "components/LoadingAnimation/LoadingAnimation";
@@ -190,6 +191,7 @@ class Page extends Component {
 function Content({ left, top, roundTranslate }) {
   return (
     <div>
+      <Opening />
       <HomeBg roundTranslate={roundTranslate} />
       <div
         className="cover-box"
