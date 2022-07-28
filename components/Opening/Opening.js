@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css, keyframes } from "@emotion/react";
+import { useState } from "react";
 
 const textKeyframs = keyframes`
   0%{
@@ -22,6 +23,10 @@ const bgKeyframs = keyframes`
 `;
 
 const Opening = () => {
+  const [isShow, setIsShow] = useState(true);
+  setTimeout(() => {
+    setIsShow(false);
+  }, 4800);
   return (
     <div
       css={css`
@@ -31,6 +36,7 @@ const Opening = () => {
         right: 0;
         bottom: 0;
         z-index: 9999;
+        display: ${isShow ? "block" : "none"};
 
         & > div {
           position: absolute;
