@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css, keyframes } from "@emotion/react";
-import { clockwiseKeyframes, bubblesCss } from "styles/background";
+import { clockwiseKeyframes } from "styles/background";
 import Bubbles from "components/Bubbles/Bubbles";
+import LoadingAnimation from "components/LoadingAnimation/LoadingAnimation";
 
 const whiteCoverKeyframes = keyframes`
   0%{
@@ -182,63 +183,74 @@ const HomeBg = ({ roundTranslate }) => {
           }
         `}
       ></div>
-      <div
-        className="bg-round"
-        css={css`
-          position: absolute;
-          width: 80vw;
-          height: 80vw;
-          top: 50vh;
-          left: 10vw;
-          z-index: -1;
-          overflow: hidden;
-          opacity: 0.4;
-          /* transition: transform 1s; */
-          ${`transform: translateY(${-roundTranslate}px);`}
-
-          @media (max-width: 576px) {
-            top: 80vh;
-            width: 100vw;
-            left: 0vw;
-            height: 180vw;
-          }
+      <LoadingAnimation
+        beforeAnimation={css`
+          transform: translateY(300px);
+        `}
+        animationIn={css`
+          transform: translateY(0);
+          transition: all 2.3s cubic-bezier(0.12, 0.41, 0.36, 0.95);
+          transition-delay: 3.5s;
         `}
       >
         <div
+          className="bg-round"
           css={css`
             position: absolute;
             width: 80vw;
             height: 80vw;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            top: 50vh;
+            left: 10vw;
+            z-index: -1;
+            overflow: hidden;
+            opacity: 0.4;
+            /* transition: transform 1s; */
+            ${`transform: translateY(${-roundTranslate}px);`}
+
+            @media (max-width: 576px) {
+              top: 80vh;
+              width: 100vw;
+              left: 0vw;
+              height: 180vw;
+            }
           `}
         >
+          <div
+            css={css`
+              position: absolute;
+              width: 80vw;
+              height: 80vw;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            `}
+          >
+            <img
+              src="/images/circle-sun.png"
+              alt="background"
+              css={css`
+                position: absolute;
+                width: 100%;
+                margin: 0 auto;
+              `}
+            />
+          </div>
           <img
-            src="/images/circle-sun.png"
+            src="/images/circle-main.png"
             alt="background"
             css={css`
               position: absolute;
               width: 100%;
-              margin: 0 auto;
+              animation: ${clockwiseKeyframes} 100s linear infinite;
+
+              @media (max-width: 576px) {
+                width: 180vw;
+                left: -40vw;
+              }
             `}
           />
         </div>
-        <img
-          src="/images/circle-main.png"
-          alt="background"
-          css={css`
-            position: absolute;
-            width: 100%;
-            animation: ${clockwiseKeyframes} 100s linear infinite;
-
-            @media (max-width: 576px) {
-              width: 180vw;
-              left: -40vw;
-            }
-          `}
-        />
-      </div>
+      </LoadingAnimation>
       <div className="bubbles-box">
         <Bubbles />
       </div>

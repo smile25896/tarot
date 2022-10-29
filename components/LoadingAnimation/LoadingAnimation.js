@@ -23,6 +23,7 @@ export default class LoadingAnimation extends Component {
     this.myRef = React.createRef();
 
     this.checkShow = this.checkShow.bind(this);
+    this.setShow = this.setShow.bind(this);
   }
 
   componentDidMount() {
@@ -39,10 +40,15 @@ export default class LoadingAnimation extends Component {
       window.pageYOffset + window.screen.height - 200 >
       this.myRef.current.offsetTop
     ) {
-      this.setState({
-        isShow: true,
-      });
+      const delay = this.props.delay ? this.props.delay : 0;
+      setTimeout(this.setShow, delay * 1000);
     }
+  }
+
+  setShow() {
+    this.setState({
+      isShow: true,
+    });
   }
 
   render() {
