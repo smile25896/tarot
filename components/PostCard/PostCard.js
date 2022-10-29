@@ -5,33 +5,7 @@ import Link from "next/link";
 const PostCard = ({ link }) => {
   return (
     <Link href={link}>
-      <div
-        css={css`
-          position: relative;
-          flex: 1;
-          cursor: pointer;
-
-          @media (min-width: 577px) {
-            &:nth-child(2n-1) {
-              margin-top: 10vh;
-            }
-            &:nth-child(2n) {
-              margin-right: 4vw;
-              margin-left: 4vw;
-            }
-            &:hover {
-              .cover-mask {
-                opacity: 1;
-              }
-            }
-          }
-
-          @media (max-width: 576px) {
-            margin: 40px 0;
-            display: flex;
-          }
-        `}
-      >
+      <div>
         <div
           className="cover-box"
           css={css`

@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import PropTypes from "prop-types";
 import { css, keyframes } from "@emotion/react";
 import LoadingAnimation from "components/LoadingAnimation/LoadingAnimation";
 import Link from "next/link";
@@ -145,7 +146,7 @@ const titleShowCss = css`
   /* opacity 1s ease-in-out; */
 `;
 
-function Title({ left, top }) {
+function Title() {
   return (
     <div
       className="title"
@@ -377,6 +378,11 @@ function FloatCard({ left, top }) {
   );
 }
 
+FloatCard.propTypes = {
+  left: PropTypes.number.isRequired,
+  top: PropTypes.number.isRequired,
+};
+
 export default function Cover({ left, top }) {
   return (
     <div
@@ -471,3 +477,8 @@ export default function Cover({ left, top }) {
     </div>
   );
 }
+
+Cover.propTypes = {
+  left: PropTypes.number.isRequired,
+  top: PropTypes.number.isRequired,
+};

@@ -2,17 +2,6 @@
 import React, { Component } from "react";
 import { css, keyframes } from "@emotion/react";
 
-const opacityCss = css`
-  opacity: 0;
-  transform: translateY(-50px);
-`;
-
-const showCss = css`
-  opacity: 1;
-  transform: translateY(0px);
-  transition: all 1.5s ease-out;
-`;
-
 export default class LoadingAnimation extends Component {
   constructor(props) {
     super(props);
