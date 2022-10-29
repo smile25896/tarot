@@ -498,7 +498,7 @@ const Card = ({ cardId, direction, isOpen }) => {
             width: 100%;
             ${direction === false ? "transform: rotate(180deg)" : ""}
           `}
-          src={`/tarots/${cardId % 5}.png`}
+          src={`/tarots/c${cardId.toString().padStart(2, "0")}.png`}
         />
       </div>
       <div
