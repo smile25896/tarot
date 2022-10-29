@@ -9,7 +9,7 @@ const floatKeyframes = keyframes`
     transform: translateY(0);
   }
   50%{
-    transform: translateY(20px);
+    transform: translateY(-20px);
   }
 `;
 
@@ -124,25 +124,27 @@ const circleBtnCss = css`
 
 const opacityCss = css`
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(-50px);
 `;
 
 const showCss = css`
   opacity: 1;
   transform: translateY(0px);
-  transition: transform 1s ease-out 0.2s, opacity 0.3s ease-in-out 0.2s;
+  transition: transform 2s ease-out 0.2s, opacity 0.8s ease-in-out 0.2s;
 `;
 
 const titleBeforeAnimation = css`
   opacity: 0;
-  transform: translate3d(100px, 100px, 40px) scale(0.8);
+  transform: translateY(40px) scale(0.8);
+  /* transform: translate3d(100px, 100px, 40px) scale(0.8); */
   /* transform: translate3d(100px, 100px, 40px) rotate3d(1, 0, 0, 80deg) scale(0.8); */
 `;
 
 const titleShowCss = css`
   opacity: 1;
   transform: matrix(1, 0, 0, 1, 0, 0);
-  transition: all 1.9s cubic-bezier(0.3, 0.4, 0.1, 1) 0.2s;
+  transition: all 2s ease-in-out 0.2s;
+  /* transition: all 1.9s cubic-bezier(0.3, 0.4, 0.1, 1) 0.2s; */
   /* opacity 1s ease-in-out; */
 `;
 
@@ -290,7 +292,7 @@ function FloatCard({ left, top }) {
     >
       {/* 左邊的塔羅牌」 */}
       <LoadingAnimation
-        delay={4.7}
+        delay={4.2}
         beforeAnimation={opacityCss}
         animationIn={showCss}
       >
@@ -300,7 +302,7 @@ function FloatCard({ left, top }) {
             css`
               top: 10vh;
               animation: ${floatKeyframes} 3.5s ease-in-out infinite;
-              animation-delay: 5.9s;
+              animation-delay: 6.5s;
             `,
           ]}
         >
@@ -317,7 +319,7 @@ function FloatCard({ left, top }) {
         </div>
       </LoadingAnimation>
       <LoadingAnimation
-        delay={5.2}
+        delay={4.5}
         beforeAnimation={opacityCss}
         animationIn={showCss}
       >
@@ -328,7 +330,7 @@ function FloatCard({ left, top }) {
               top: 0px;
               left: 15vw;
               animation: ${floatKeyframes} 3.5s ease-in-out infinite;
-              animation-delay: 6.3s;
+              animation-delay: 6.8s;
               @media (max-width: 576px) {
                 left: 30vw;
               }
