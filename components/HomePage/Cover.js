@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { css, keyframes } from "@emotion/react";
 import LoadingAnimation from "components/LoadingAnimation/LoadingAnimation";
@@ -385,102 +386,131 @@ FloatCard.propTypes = {
   top: PropTypes.number.isRequired,
 };
 
-export default function Cover({ left, top }) {
-  return (
-    <div
-      className="cover-box"
-      css={css`
-        /* display: none; */
-        height: 100vh;
-        @media (max-width: 576px) {
-          height: 150vh;
-        }
-      `}
-    >
-      <Title left={left} top={top} />
-      <FloatCard left={left} top={top} />
+class Cover extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      left: 0,
+      top: 0,
+      roundTranslate: 0,
+    };
+
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener("mousemove", this.handleMouseMove);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousemove", this.handleMouseMove);
+  }
+
+  handleMouseMove(e) {
+    this.setState({
+      left: e.pageX * 0.6,
+      top: Math.min(e.pageY - window.pageYOffset, 1000),
+    });
+  }
+
+  render() {
+    const left = Number(this.state.left / 40);
+    const top = Number(this.state.top / 20);
+    return (
       <div
-        className="quick-start"
+        className="cover-box"
         css={css`
-          position: absolute;
-          right: 0;
-          top: calc(50vh - 25px);
-          cursor: pointer;
-          overflow: hidden;
-          &::before {
-            content: "";
-            position: absolute;
-            z-index: 3;
-            display: block;
-            display: none;
-            width: 20px;
-            height: 200px;
-            background: linear-gradient(
-              90deg,
-              transparent 0%,
-              #ffffff 40%,
-              #ffffff 60%,
-              transparent 100%
-            );
-            /* background: red; */
-            transform: rotate(-45deg) translate(30px, -20px);
-            transition: all 0.3s;
-          }
-          &:hover {
-            .line-box {
-              transform: translateX(10px);
-            }
-            ::before {
-              transform: rotate(-45deg) translate(150px, -20px);
-            }
+          /* display: none; */
+          height: 100vh;
+          @media (max-width: 576px) {
+            height: 150vh;
           }
         `}
       >
+        <Title left={left} top={top} />
+        <FloatCard left={left} top={top} />
         <div
-          className="line-box"
+          className="quick-start"
           css={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s;
+            position: absolute;
+            right: 0;
+            top: calc(50vh - 25px);
+            cursor: pointer;
+            overflow: hidden;
+            &::before {
+              content: "";
+              position: absolute;
+              z-index: 3;
+              display: block;
+              display: none;
+              width: 20px;
+              height: 200px;
+              background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #ffffff 40%,
+                #ffffff 60%,
+                transparent 100%
+              );
+              /* background: red; */
+              transform: rotate(-45deg) translate(30px, -20px);
+              transition: all 0.3s;
+            }
+            &:hover {
+              .line-box {
+                transform: translateX(10px);
+              }
+              ::before {
+                transform: rotate(-45deg) translate(150px, -20px);
+              }
+            }
           `}
         >
-          <img
-            src="/images/btn-arrow.png"
-            alt="quick-start-button"
-            css={css`
-              width: 13px;
-            `}
-          />
           <div
-            className="line"
+            className="line-box"
             css={css`
-              height: 1px;
-              width: 96px;
-              background: #1d1406;
-              margin-left: -2px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              transition: all 0.3s;
             `}
-          ></div>
-        </div>
-        <div
-          css={css`
-            font-style: normal;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 36px;
-            letter-spacing: 0.23em;
-            text-align: right;
-            margin-right: 19px;
-          `}
-        >
-          快速占卜
+          >
+            <img
+              src="/images/btn-arrow.png"
+              alt="quick-start-button"
+              css={css`
+                width: 13px;
+              `}
+            />
+            <div
+              className="line"
+              css={css`
+                height: 1px;
+                width: 96px;
+                background: #1d1406;
+                margin-left: -2px;
+              `}
+            ></div>
+          </div>
+          <div
+            css={css`
+              font-style: normal;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 36px;
+              letter-spacing: 0.23em;
+              text-align: right;
+              margin-right: 19px;
+            `}
+          >
+            快速占卜
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-Cover.propTypes = {
-  left: PropTypes.number.isRequired,
-  top: PropTypes.number.isRequired,
-};
+Cover.propTypes = {};
+
+export default Cover;
