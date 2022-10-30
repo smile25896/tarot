@@ -2,14 +2,18 @@
 import PropTypes from "prop-types";
 import { css } from "@emotion/react";
 import Link from "next/link";
+import { useState } from "react";
+import SideMenu from "./SideMenu";
 
 const lineCss = css`
   height: 1px;
   background-color: #48381d;
   margin: 12px 0;
+  transition: all 0.5s ease-in-out;
 `;
 
-const Header = ({ showMenu }) => {
+const Header = ({ showMenuIcon }) => {
+  const [isShowMenu, setIsShowMenu] = useState(false);
   return (
     <header
       css={css`
@@ -33,14 +37,20 @@ const Header = ({ showMenu }) => {
           alt=""
         />
       </Link>
+      <SideMenu isShow={isShowMenu} />
+
       <div
         className="menu-icon"
         css={css`
-          display: ${showMenu ? "block" : "none"};
+          display: ${showMenuIcon ? "block" : "none"};
           cursor: pointer;
           /* float: right; */
           width: 37px;
+          z-index: 999;
         `}
+        onClick={() => {
+          setIsShowMenu(!isShowMenu);
+        }}
       >
         <div
           className="line-box"
@@ -55,18 +65,14 @@ const Header = ({ showMenu }) => {
               css`
                 width: 37px;
               `,
+              isShowMenu
+                ? css`
+                    transform: rotate(15deg);
+                    transform-origin: -18% 0;
+                  `
+                : null,
             ]}
           ></div>
-          {/* <div
-            className="line"
-            css={[
-              lineCss,
-              css`
-                width: 30px;
-                margin-left: 3.5px;
-              `,
-            ]}
-          ></div> */}
           <div
             className="line"
             css={[
@@ -74,6 +80,12 @@ const Header = ({ showMenu }) => {
               css`
                 width: 37px;
               `,
+              isShowMenu
+                ? css`
+                    transform: rotate(-15deg);
+                    transform-origin: -18% 0;
+                  `
+                : null,
             ]}
           ></div>
         </div>
@@ -101,6 +113,6 @@ const Header = ({ showMenu }) => {
 };
 
 Header.propTypes = {
-  showMenu: PropTypes.bool.isRequired,
+  showMenuIcon: PropTypes.bool.isRequired,
 };
 export default Header;

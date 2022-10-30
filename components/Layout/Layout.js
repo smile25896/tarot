@@ -6,13 +6,13 @@ import { css } from "@emotion/react";
 
 const Layout = ({
   showFooter,
-  showMenu = true,
+  showMenuIcon = true,
   children,
   colorfulBg = false,
 }) => {
   return (
     <>
-      <Header showMenu={showMenu} />
+      <Header showMenuIcon={showMenuIcon} />
       {colorfulBg ? (
         <div
           css={css`
@@ -41,6 +41,6 @@ Layout.propTypes = {
   children: PropTypes.any,
   colorfulBg: PropTypes.bool,
   showFooter: PropTypes.bool.isRequired,
-  showMenu: PropTypes.bool,
+  showMenuIcon: PropTypes.bool,
 };
 export default Layout;

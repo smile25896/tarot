@@ -318,7 +318,7 @@ class Shuffle extends Component {
       );
     });
     return (
-      <Layout showFooter={false} showMenu={false} colorfulBg={true}>
+      <Layout showFooter={false} showMenuIcon={false} colorfulBg={true}>
         <Global
           styles={css`
             body {
@@ -482,10 +482,11 @@ class Shuffle extends Component {
               width: 100%;
               text-align: center;
               bottom: 6vh;
-              /* display: ${this.state.shuffleStatus > SHUFFLE ||
-              this.state.circleShow <= 2
-                ? "none"
-                : "block"}; */
+              /* display: ${
+                this.state.shuffleStatus > SHUFFLE || this.state.circleShow <= 2
+                  ? "none"
+                  : "block"
+              }; */
             `}
           >
             <div

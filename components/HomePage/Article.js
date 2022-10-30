@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import Title from "components/Title/Title";
+import Title from "./Title/Title";
 import LayoutContent from "components/LayoutContent/LayoutContent";
 import PostCard from "components/PostCard/PostCard";
 import LoadingAnimation from "components/LoadingAnimation/LoadingAnimation";

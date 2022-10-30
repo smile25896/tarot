@@ -191,7 +191,7 @@ class Page extends Component {
       );
     });
     return (
-      <Layout showFooter={false} showMenu={false} colorfulBg={true}>
+      <Layout showFooter={false} showMenuIcon={false} colorfulBg={true}>
         <Global
           styles={css`
             body {
@@ -274,9 +274,8 @@ class Page extends Component {
                 align-items: center;
                 transform: translateX(30px);
                 transition: transform 0.7s;
-                /* transform: ${`translateX(${
-                  this.state.activeIndex * -164
-                }px)`}; */
+                /* transform: ${`translateX(${this.state.activeIndex *
+                  -164}px)`}; */
               `}
             >
               {spreadItems}

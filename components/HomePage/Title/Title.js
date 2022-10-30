@@ -1,27 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
+import { TitleCss, TitleOutterCss } from "components/Style/Title";
 
 const Title = ({ text, enText }) => {
   return (
     <div
-      css={css`
-        margin-bottom: 50px;
-        font-size: 3.3vw;
-        @media (max-width: 1080px) {
-          font-size: 30px;
-        }
-      `}
+      css={[
+        TitleOutterCss,
+        css`
+          margin-bottom: 50px;
+        `,
+      ]}
     >
       <h1
-        css={css`
+        css={[
+          TitleCss,
+          css`
           position: relative;
-          font-family: "Montserrat";
-          font-weight: 300;
-          font-size: 1em;
-          line-height: 1.21em;
-          text-transform: uppercase;
-          color: #48381d;
-
           &::before {
             content: "${enText}";
             display: block;
@@ -45,7 +40,8 @@ const Title = ({ text, enText }) => {
               font-size: 50px;
             }
           }
-        `}
+        `,
+        ]}
       >
         {enText}
       </h1>
