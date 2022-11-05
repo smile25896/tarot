@@ -13,7 +13,7 @@ class Page extends Component {
   render() {
     return (
       <Layout showFooter={true}>
-        <Content />
+        <Content isShowOpening={this.props.isShowOpening} />
       </Layout>
     );
   }

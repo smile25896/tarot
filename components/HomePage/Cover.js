@@ -149,7 +149,7 @@ const titleShowCss = css`
   /* opacity 1s ease-in-out; */
 `;
 
-function Title() {
+function Title({ delayTime }) {
   return (
     <div
       className="title"
@@ -168,7 +168,7 @@ function Title() {
       `}
     >
       <LoadingAnimation
-        delay={3}
+        delay={delayTime}
         beforeAnimation={titleBeforeAnimation}
         animationIn={titleShowCss}
       >
@@ -177,7 +177,7 @@ function Title() {
         </div>
       </LoadingAnimation>
       <LoadingAnimation
-        delay={3.3}
+        delay={delayTime + 0.3}
         beforeAnimation={titleBeforeAnimation}
         animationIn={titleShowCss}
       >
@@ -193,7 +193,7 @@ function Title() {
         </div>
       </LoadingAnimation>
       <LoadingAnimation
-        delay={4}
+        delay={delayTime + 1}
         beforeAnimation={opacityCss}
         animationIn={titleShowCss}
       >
@@ -274,7 +274,7 @@ function Title() {
   );
 }
 
-function FloatCard({ left, top }) {
+function FloatCard({ left, top, delayTime }) {
   return (
     <div
       className="CardBox"
@@ -293,7 +293,7 @@ function FloatCard({ left, top }) {
     >
       {/* 左邊的塔羅牌」 */}
       <LoadingAnimation
-        delay={4.2}
+        delay={delayTime + 1.2}
         beforeAnimation={opacityCss}
         animationIn={showCss}
       >
@@ -320,7 +320,7 @@ function FloatCard({ left, top }) {
         </div>
       </LoadingAnimation>
       <LoadingAnimation
-        delay={4.5}
+        delay={delayTime + 1.5}
         beforeAnimation={opacityCss}
         animationIn={showCss}
       >
@@ -416,6 +416,7 @@ class Cover extends Component {
   render() {
     const left = Number(this.state.left / 40);
     const top = Number(this.state.top / 20);
+    const delayTime = this.props.isShowOpening ? 3 : 0;
     return (
       <div
         className="cover-box"
@@ -427,8 +428,8 @@ class Cover extends Component {
           }
         `}
       >
-        <Title left={left} top={top} />
-        <FloatCard left={left} top={top} />
+        <Title left={left} top={top} delayTime={delayTime} />
+        <FloatCard left={left} top={top} delayTime={delayTime} />
         <div
           className="quick-start"
           css={css`
