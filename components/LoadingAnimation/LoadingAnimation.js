@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { Component } from "react";
-import { css, keyframes } from "@emotion/react";
-import { isConstructorDeclaration } from "typescript";
+import { css } from "@emotion/react";
 
 const opacityCss = css`
   opacity: 0;
@@ -29,9 +28,9 @@ export default class LoadingAnimation extends Component {
   }
 
   componentDidMount() {
-    this.checkShow();
     // 進場動畫觸發條件分成：1. scroll滾到 2.設定this.props.isShow
     if (this.props.isShow === undefined) {
+      this.checkShow();
       document.addEventListener("scroll", this.checkShow);
     }
   }
@@ -41,9 +40,14 @@ export default class LoadingAnimation extends Component {
       this.props.isShow !== undefined &&
       this.props.isShow !== prevProps.isShow
     ) {
-      this.setState({
-        isShow: this.props.isShow,
-      });
+      if (this.props.isShow) {
+        const delay = this.props.delay ? this.props.delay : 0;
+        setTimeout(this.setShow, delay * 1000);
+      } else {
+        this.setState({
+          isShow: false,
+        });
+      }
     }
   }
 

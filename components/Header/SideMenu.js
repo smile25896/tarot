@@ -45,8 +45,8 @@ const UlCss = css`
 
 function MenuColumn({ title, list, isShow }) {
   const listItems = list.map((item, index) => (
-    <LoadingAnimation delay={index * 0.2}>
-      <li key={index}>
+    <LoadingAnimation isShow={isShow} delay={index * 0.2} key={index}>
+      <li>
         <Link href={item.link}>{item.title}</Link>
       </li>
     </LoadingAnimation>
@@ -93,7 +93,7 @@ export default function SideMenu({ isShow }) {
             { title: "快速占卜", link: "/" },
           ]}
         />
-        {/* <MenuColumn
+        <MenuColumn
           isShow={isShow}
           title="Article"
           list={[
@@ -102,7 +102,7 @@ export default function SideMenu({ isShow }) {
             { title: "文章分類3", link: "/" },
             { title: "文章分類4", link: "/" },
           ]}
-        /> */}
+        />
       </div>
     </div>
   );

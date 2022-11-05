@@ -113,6 +113,6 @@ const Header = ({ showMenuIcon }) => {
 };
 
 Header.propTypes = {
-  showMenuIcon: PropTypes.bool.isRequired,
+  // showMenuIcon: PropTypes.bool.isRequired,
 };
 export default Header;
