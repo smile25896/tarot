@@ -5,6 +5,7 @@ import Footer from "components/Footer/Footer";
 import { css } from "@emotion/react";
 
 const Layout = ({
+  topPadding = false,
   showFooter,
   showMenuIcon = true,
   children,
@@ -31,13 +32,20 @@ const Layout = ({
           `}
         ></div>
       ) : null}
-      <main>{children}</main>
+      <main
+        css={css`
+          ${topPadding ? "padding-top: 95px;" : ""};
+        `}
+      >
+        {children}
+      </main>
       {showFooter ? <Footer /> : null}
     </>
   );
 };
 
 Layout.propTypes = {
+  topPadding: PropTypes.bool,
   children: PropTypes.any,
   colorfulBg: PropTypes.bool,
   showFooter: PropTypes.bool.isRequired,
