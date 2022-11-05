@@ -1,9 +1,123 @@
 /** @jsxImportSource @emotion/react */
 import PropTypes from "prop-types";
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import Link from "next/link";
 import { TitleCss } from "components/Style/Title";
 import LoadingAnimation from "components/LoadingAnimation/LoadingAnimation";
+
+const whiteCoverKeyframes = keyframes`
+  0%{
+    transform: rotate(0deg);
+  }
+
+50%{
+  transform: rotate(180deg) translateY(140px);
+}
+
+  100%{
+    transform: rotate(360deg);
+  }
+`;
+
+const whiteCoverKeyframes3 = keyframes`
+  0%{
+    transform: rotate(0deg);
+  }
+
+50%{
+  /* transform: rotate(180deg) translateY(140px); */
+}
+
+  100%{
+    transform: rotate(360deg);
+  }
+`;
+
+const waveCss = css`
+  position: absolute;
+  transform-origin: center;
+  filter: blur(30px);
+  background: white;
+`;
+
+function BgColor() {
+  return (
+    <div
+      className="bg-colorful"
+      css={css`
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: linear-gradient(0deg, #e6f4f2, #f5ede4, #f5e4e1);
+
+        @media (max-width: 768px) {
+          top: -10vh;
+        }
+
+        @media (max-width: 576px) {
+          height: 250vh;
+        }
+      `}
+    ></div>
+  );
+}
+
+function CoverBox() {
+  return (
+    <div
+      className="top-cover-box"
+      css={css`
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        @media (max-width: 768px) {
+          top: -20vh;
+        }
+      `}
+    >
+      <div
+        className="top-cover"
+        css={[
+          waveCss,
+          css`
+            position: absolute;
+            z-index: -1;
+            top: -20vw;
+            left: 0vw;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 40%;
+            /* background: red; */
+            filter: blur(25px);
+            animation: ${whiteCoverKeyframes3} 15s infinite linear;
+          `,
+        ]}
+      ></div>
+      <div
+        className="top-cover"
+        css={[
+          waveCss,
+          css`
+            position: absolute;
+            z-index: -1;
+            top: 10vh;
+            left: -20vw;
+            width: 100vw;
+            height: 100vw;
+            /* background: red; */
+            border-radius: 40%;
+            animation: ${whiteCoverKeyframes} 15s infinite linear;
+          `,
+        ]}
+      ></div>
+    </div>
+  );
+}
 
 const SideMenuCss = css`
   position: fixed;
@@ -78,6 +192,8 @@ MenuColumn.propTypes = {
 export default function SideMenu({ isShow }) {
   return (
     <div css={[SideMenuCss, isShow ? SideMenuShowCss : null]}>
+      <BgColor />
+      <CoverBox />
       <div
         css={css`
           position: absolute;
