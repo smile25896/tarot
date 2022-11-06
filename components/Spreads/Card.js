@@ -18,30 +18,29 @@ const Card = ({ _css, status = CARD_STATUS_TRANSLUCENT, card, isOpen }) => {
         _css,
       ]}
     >
-      {status !== CARD_STATUS_NORMAL ? (
-        <img
-          css={css`
-            width: 100%;
-            height: 100%;
-            /* ${status === CARD_STATUS_EMPTY
-              ? "border: 1px dashed blue"
-              : ""}; */
-          `}
-          src={
-            status === CARD_STATUS_NORMAL
-              ? "/images/card-2.png"
-              : status === CARD_STATUS_EMPTY
-              ? "/images/card-none.png"
-              : "/images/card-3.png"
-          }
-        ></img>
-      ) : (
+      {status !== CARD_STATUS_NORMAL ? null : (
         <TarotCard
           cardId={card.id}
           direction={card.direction}
           isOpen={isOpen}
         />
       )}
+      <img
+        css={css`
+          ${status === CARD_STATUS_NORMAL ? "position: absolute;" : ""};
+          top: 0;
+          left: 0;
+          width: 100%;
+          /* height: 100%; */
+          opacity: ${status === CARD_STATUS_NORMAL ? 0 : 1};
+          transition: opacity 0.5s;
+        `}
+        src={
+          status === CARD_STATUS_TRANSLUCENT
+            ? "/images/card-3.png"
+            : "/images/card-none.png"
+        }
+      ></img>
     </div>
   );
 };
