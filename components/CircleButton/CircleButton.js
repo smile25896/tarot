@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css, keyframes } from "@emotion/react";
+import { useState } from "react";
 
 const littleCircleShadowKeyframes = keyframes`
   0%{
@@ -45,7 +46,13 @@ const bigCircleShadowKeyframes = keyframes`
 `;
 
 const CircleButton = ({ shuffle, top, left, isShow }) => {
-  return (
+  const [isHide, setIsHide] = useState(false);
+  if (!isShow && !isHide) {
+    setTimeout(() => {
+      setIsHide(true);
+    }, 700);
+  }
+  return !isHide ? (
     <div
       css={css`
         position: absolute;
@@ -75,6 +82,6 @@ const CircleButton = ({ shuffle, top, left, isShow }) => {
         `}
       ></div>
     </div>
-  );
+  ) : null;
 };
 export default CircleButton;

@@ -28,7 +28,7 @@ class Shuffle extends Component {
     super(props);
     this.state = {
       isShowMask: true,
-      scene: 1,
+      scene: 1, // - 1: 準備頁面; 2: 抽牌洗牌頁面
       cards: Array.from({ length: 78 }, (_, i) => {
         return {
           id: i,
@@ -41,7 +41,7 @@ class Shuffle extends Component {
       cutIndexes: [],
       cardStatus: [],
       chosenCards: [],
-      circleShow: 0, // 洗牌階段時，顯示第幾個提示點擊圈圈
+      circleShow: true, // 洗牌階段時，顯示提示點擊圈圈
     };
 
     this.hiddenMask = this.hiddenMask.bind(this);
@@ -108,7 +108,7 @@ class Shuffle extends Component {
     this.setState({
       cards: array,
       shuffleStatus: SHUFFLE,
-      circleShow: this.state.circleShow + 1,
+      circleShow: false,
     });
   }
 
@@ -459,9 +459,9 @@ class Shuffle extends Component {
             shuffle={this.shuffle}
             top={30}
             left={60}
-            isShow={this.state.circleShow === 0}
+            isShow={this.state.circleShow}
           />
-          <CircleButton
+          {/* <CircleButton
             shuffle={this.shuffle}
             top={40}
             left={40}
@@ -472,7 +472,7 @@ class Shuffle extends Component {
             top={60}
             left={50}
             isShow={this.state.circleShow === 2}
-          />
+          /> */}
           {/* ↑ 洗牌的提示圈圈 ↑ */}
 
           {/* ↓ 下一步的button ↓ */}
@@ -496,11 +496,11 @@ class Shuffle extends Component {
                 margin: 0 auto;
                 cursor: pointer;
                 visibility: ${this.state.shuffleStatus === SHUFFLE &&
-                this.state.circleShow > 2
+                !this.state.circleShow
                   ? "visible"
                   : "hidden"};
                 opacity: ${this.state.shuffleStatus === SHUFFLE &&
-                this.state.circleShow > 2
+                !this.state.circleShow
                   ? "1"
                   : "0"};
                 transition: all 1s ease-in-out 0.3s;
